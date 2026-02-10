@@ -6,4 +6,8 @@
   background: linear-gradient(0deg,$from 0%, $to 100%);
 }
 
-
+@mixin shadow($x: 2px, $y: 4px, $blur: 9px, $spread: 0, $color: rgba(0, 0, 0, 0.48)) {
+  -webkit-box-shadow: $x $y $blur $spread $color;
+  -moz-box-shadow: $x $y $blur $spread $color;
+  box-shadow: $x $y $blur $spread $color;
+}

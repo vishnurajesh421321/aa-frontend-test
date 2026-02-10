@@ -1,0 +1,25 @@
+@use "./styles/abstracts/mixins" as *;
+.custom-input{
+  position: relative;
+  input{
+    flex: 1;
+    height: 50px;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0 2.4rem 0 1rem;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  @include shadow();
+  .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
