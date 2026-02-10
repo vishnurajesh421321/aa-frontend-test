@@ -1,0 +1,3 @@
+@function black-alpha($alpha) {
+@return rgba(0,0,0, $alpha);
+}

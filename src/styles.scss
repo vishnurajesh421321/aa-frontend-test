@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./styles/base/reset" as *;
+@use "./styles/utilities/flex" as *;
+@use "./styles/abstracts/variable" as *;
+@use "./styles/abstracts/mixins" as *;
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+body {
+  @include linear-gradient($primary-bg, $secondary-bg);
+  font-family: 'Roboto', sans-serif;
+}
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 400;
+}
