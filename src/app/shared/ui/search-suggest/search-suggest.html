@@ -1,0 +1,11 @@
+<div [ngClass]="{'active': query.value && items().length}" class="search-suggest">
+  <app-input [formControl]="query" placeHolder="Seach here..." icon="search"/>
+  @if (query.value && items().length) {
+      <ul class="drop-down-list">
+        @for (item of items(); track item[key]) {
+          <li><a (click)="handleOnChange(item)">{{OptionLabelAsKeyOf ? item[OptionLabelAsKeyOf] : item}}</a></li>
+        }
+      </ul>
+
+  }
+</div>

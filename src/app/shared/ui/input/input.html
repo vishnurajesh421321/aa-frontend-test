@@ -1,5 +1,5 @@
 <div class="flex items-center custom-input">
-  <input [placeholder]="placeHolder()" [type]="inputType()">
+  <input (input)="handleInput($event)" (blur)="handleBlur()" [placeholder]="placeHolder()" [type]="inputType()">
   @if (icon()) {
     <div class="icon">
       <img width="35" height="25" [ngSrc]="`assets/icons/${icon()}.svg`" alt="search">

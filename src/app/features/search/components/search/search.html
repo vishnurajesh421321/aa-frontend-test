@@ -1,5 +1,5 @@
 <div class="flex flex-center">
   <div class="search-box">
-    <app-input placeHolder="Seach here..." icon="search"/>
+    <app-search-suggest [optionLabel]="'name'" [formControl]="selectedItem" [itemKey]="'name'" [items]="items"/>
   </div>
 </div>
