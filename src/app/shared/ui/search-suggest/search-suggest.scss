@@ -1,19 +1,24 @@
 @use "styles/abstracts/variable" as *;
 @use "styles/abstracts/functions" as *;
 
-.search-suggest{
-  position: relative;
-  .drop-down-list {
-    list-style: none;
-    border-radius: $primary-radius;
-    position: absolute;
-    width: 100%;
-    background-color: white;
-    left: 0;
-    top: 55px;
-    li {
+.drop-down-list {
+  margin-top: 10px;
+  list-style: none;
+  border-radius: $primary-radius;
+  width: 100%;
+  background-color: white;
+  li {
+    border-bottom: 1px solid $primary;
+    a{
+      width: 100%;
+      height: 100%;
+      display: block;
       padding: 0.5rem 1rem;
-      border-bottom: 1px solid $primary;
+      cursor: pointer;
+      color: $primary;
+      &:hover {
+        background-color: blackAlpha(0.1);
+      }
     }
   }
 }
@@ -27,5 +32,21 @@
     height: 100%;
     background-color: blackAlpha(0.5);
     z-index: -1;
+  }
+}
+.empty-item {
+  background-color: white;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $primary-radius;
+  margin-top: 10px;
+  span, app-spinner{
+    font-size: 1.2rem;
+    color: $primary;
+    display: block;
+    line-height: 1px;
   }
 }

@@ -43,7 +43,6 @@ export class Input implements ControlValueAccessor {
   handleInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.value = value;
-    console.log('value', value);
     this.onChange(value);
     this.writeValue(value)
   }

@@ -1,11 +1,32 @@
-<div [ngClass]="{'active': query.value && items().length}" class="search-suggest">
-  <app-input [formControl]="query" placeHolder="Seach here..." icon="search"/>
-  @if (query.value && items().length) {
-      <ul class="drop-down-list">
-        @for (item of items(); track item[key]) {
-          <li><a (click)="handleOnChange(item)">{{OptionLabelAsKeyOf ? item[OptionLabelAsKeyOf] : item}}</a></li>
-        }
-      </ul>
-
-  }
+<div [ngClass]="{'active': query.value && items()?.length}">
+  <app-input cdkOverlayOrigin #origin="cdkOverlayOrigin" [formControl]="query" placeHolder="Seach here..." icon="search"/>
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="isOpen()"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+    (backdropClick)="isOpen.set(false)"
+    [cdkConnectedOverlayWidth]="origin.elementRef.nativeElement.offsetWidth"
+    (detach)="isOpen.set(false)">
+    @if(loading()) {
+      <div class="empty-item">
+        <app-spinner/>
+      </div>
+    } @else {
+      @if(items()?.length) {
+        <ul class="drop-down-list">
+          @for (item of items(); track item[key]) {
+            <li><a (click)="handleOnChange(item)">{{OptionLabelAsKeyOf ? item[OptionLabelAsKeyOf] : item}}</a></li>
+          }
+        </ul>
+      } @else {
+        <div class="empty-item">
+          <span>
+            {{emptyMessage() ?? 'No items found'}}
+          </span>
+        </div>
+      }
+    }
+  </ng-template>
 </div>

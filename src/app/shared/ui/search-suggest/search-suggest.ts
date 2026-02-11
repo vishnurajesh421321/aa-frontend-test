@@ -1,9 +1,22 @@
-import {Component, computed, DestroyRef, effect, forwardRef, inject, input, OnInit, output} from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  forwardRef,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal
+} from '@angular/core';
 import {Input} from '../input/input';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {NgClass} from '@angular/common';
+import {CdkConnectedOverlay, CdkOverlayOrigin} from '@angular/cdk/overlay';
+import {Spinner} from '../spinner/spinner';
 
 @Component({
   selector: 'app-search-suggest',
@@ -11,6 +24,9 @@ import {NgClass} from '@angular/common';
     ReactiveFormsModule,
     Input,
     NgClass,
+    CdkConnectedOverlay,
+    CdkOverlayOrigin,
+    Spinner,
   ],
   templateUrl: './search-suggest.html',
   styleUrl: './search-suggest.scss',
@@ -24,14 +40,15 @@ import {NgClass} from '@angular/common';
 })
 export class SearchSuggest<TItem> implements ControlValueAccessor, OnInit {
   formControl = input.required<FormControl>()
-  items = input.required<TItem[]>()
+  items = input.required<TItem[] | null>()
   itemKey = input.required<string>();
   optionLabel = input<string>();
+  emptyMessage = input<string>();
   optionKey = input<string>();
+  loading = input<boolean>(true);
   optionKeyAsKeyOf: keyof TItem | null = null;
   OptionLabelAsKeyOf : keyof TItem | null = null;
   key = computed(() => this.itemKey) as unknown as keyof TItem;
-  isOpen = false;
   onOpen = output<boolean>()
   inputType = input<'text' | 'password' | 'email'>('text');
   icon = input<string | null>(null);
@@ -40,6 +57,7 @@ export class SearchSuggest<TItem> implements ControlValueAccessor, OnInit {
   value: TItem | null = null
   disabled = false;
   destroyRef = inject(DestroyRef);
+  isOpen = signal(false)
 
   protected onChange = (value: TItem | string | number) => {};
   protected query: FormControl = new FormControl('');
@@ -53,6 +71,9 @@ export class SearchSuggest<TItem> implements ControlValueAccessor, OnInit {
   ngOnInit() {
     this.query.valueChanges.pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef)).subscribe(value => {
       this.onSearch.emit(value);
+      if(value) {
+        this.isOpen.set(true)
+      }
     })
   }
 
