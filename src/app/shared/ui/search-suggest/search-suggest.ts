@@ -46,6 +46,7 @@ export class SearchSuggest<TItem> implements ControlValueAccessor, OnInit {
   emptyMessage = input<string>();
   optionKey = input<string>();
   loading = input<boolean>(true);
+  error = input<string>('');
   optionKeyAsKeyOf: keyof TItem | null = null;
   OptionLabelAsKeyOf : keyof TItem | null = null;
   key = computed(() => this.itemKey) as unknown as keyof TItem;

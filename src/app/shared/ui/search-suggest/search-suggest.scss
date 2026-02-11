@@ -1,12 +1,15 @@
 @use "styles/abstracts/variable" as *;
 @use "styles/abstracts/functions" as *;
-
-.drop-down-list {
-  margin-top: 10px;
-  list-style: none;
+.dropdown-wrapper {
   border-radius: $primary-radius;
-  width: 100%;
   background-color: white;
+  margin-top: 10px;
+  width: 100%;
+}
+.drop-down-list {
+  list-style: none;
+  width: 100%;
+  overflow: hidden;
   li {
     border-bottom: 1px solid $primary;
     a{
@@ -44,7 +47,7 @@
   border-radius: $primary-radius;
   margin-top: 10px;
   span, app-spinner{
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: $primary;
     display: block;
     line-height: 1px;

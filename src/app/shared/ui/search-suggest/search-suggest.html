@@ -15,16 +15,26 @@
       </div>
     } @else {
       @if(items()?.length) {
-        <ul class="drop-down-list">
-          @for (item of items(); track item[key]) {
-            <li><a (click)="handleOnChange(item)">{{OptionLabelAsKeyOf ? item[OptionLabelAsKeyOf] : item}}</a></li>
-          }
-        </ul>
+        <div class="dropdown-wrapper">
+          <ul class="drop-down-list">
+            @for (item of items(); track item[key]) {
+              <li><a (click)="handleOnChange(item)">{{OptionLabelAsKeyOf ? item[OptionLabelAsKeyOf] : item}}</a></li>
+            }
+          </ul>
+          <ng-content></ng-content>
+
+        </div>
       } @else {
         <div class="empty-item">
-          <span>
+          @if (error()) {
+            <span>
+            {{error()}}
+          </span>
+          } @else {
+            <span>
             {{emptyMessage() ?? 'No items found'}}
           </span>
+          }
         </div>
       }
     }

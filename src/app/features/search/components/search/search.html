@@ -1,10 +1,17 @@
 <div class="flex flex-center">
   <div class="search-box">
     <app-search-suggest
-      (onSearch)="getAllBreweries($event)"
+      (onSearch)="getQuery($event)"
       [optionLabel]="'name'"
       [formControl]="selectedItem"
       [loading]="breweriesRequest.isLoading()"
-      [itemKey]="'name'" [items]="breweriesRequest.data()"/>
+      [error]="breweriesRequest.error()"
+      [itemKey]="'name'" [items]="breweriesRequest.data()">
+      <div class="flex justify-end button-section">
+        <button (click)="seeAll()" class="btn-primary">
+          See all results
+        </button>
+      </div>
+    </app-search-suggest>
   </div>
 </div>

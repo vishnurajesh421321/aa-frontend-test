@@ -16,3 +16,10 @@ h1 {
   line-height: 1.2;
   font-weight: 400;
 }
+.btn-primary {
+  background-color: $secondary;
+  padding: 0.2rem 1.5rem;
+  color: $primary;
+  border-radius: $primary-radius;
+  font-size: 15px;
+}
