@@ -3,11 +3,12 @@
     <app-search-suggest
       (onSearch)="getQuery($event)"
       [formControl]="selectedItem"
-      [loading]="breweriesRequest.isLoading()"
-      [error]="breweriesRequest.error()"
+      [loading]="breweryStore.loading()"
+      [error]="breweryStore.error()?.toString() || ''"
       [minQueryLength]="3"
-      [items]="breweriesRequest.data()">
-      @if ((breweriesRequest?.data()?.length || 0) > 4) {
+      (onSelectBrewery)="saveSelectedToHistory($event)"
+      [items]="breweryStore.breweries()">
+      @if ((breweryStore.breweries().length || 0) > 4) {
         <div class="flex justify-end button-section">
           <button (click)="seeAll()" class="btn-primary">
             See all results
@@ -15,5 +16,9 @@
         </div>
       }
     </app-search-suggest>
+
+    <div class="search-history-wrapper">
+      <app-components/>
+    </div>
   </div>
 </div>

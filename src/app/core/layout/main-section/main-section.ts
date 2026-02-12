@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Search} from '../../../features/search/components/search/search';
+import {Search} from '../../../features/search/search';
 import {SearchSuggest} from '../../../features/search/components/search-suggest/search-suggest';
 
 @Component({

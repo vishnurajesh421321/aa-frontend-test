@@ -1,0 +1,13 @@
+@use "./styles/abstracts/variable" as *;
+@use "./styles/abstracts/mixins" as *;
+:host{
+  padding: 0.5rem 1rem;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  @include shadow();
+  span{
+    color: $primary;
+  }
+}

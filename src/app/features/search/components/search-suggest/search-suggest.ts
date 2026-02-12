@@ -15,7 +15,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { NgClass} from '@angular/common';
 import {CdkConnectedOverlay, CdkOverlayOrigin} from '@angular/cdk/overlay';
 import {Spinner} from '../../../../shared/ui/spinner/spinner';
-import {Brewery} from '../../../models/breweries.interface';
+import {Brewery} from '../../models/breweries.interface';
 import {ItemDetailsPanel} from '../item-details-panel/item-details-panel';
 
 @Component({
@@ -40,6 +40,7 @@ export class SearchSuggest implements OnInit {
   loading = input<boolean>(true);
   error = input<string>('');
   onOpen = output<boolean>()
+  onSelectBrewery = output<Brewery>()
   inputType = input<'text' | 'password' | 'email'>('text');
   icon = input<string | null>(null);
   placeHolder = input<string>('');
@@ -71,6 +72,7 @@ export class SearchSuggest implements OnInit {
 
   protected selectBrewery(item: Brewery) {
     this.selectedBrewery = item;
+    this.onSelectBrewery.emit(item)
   }
 
   protected restValue() {

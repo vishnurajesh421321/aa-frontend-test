@@ -1,4 +1,4 @@
-@use "./styles/abstracts/mixins" as *;
+@use "../../../styles/abstracts/mixins" as *;
 .search-box {
   width: 80%;
   @include responsive(medium) {
@@ -8,4 +8,7 @@
 }
 .button-section{
   padding: 0.5rem 1rem;
+}
+.search-history-wrapper {
+  margin-top: 3rem;
 }

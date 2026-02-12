@@ -10,3 +10,4 @@ export interface Brewery {
   state: string;
   street: string;
 }
+export type BrewerySearchHistory = Brewery & { createdAt: string };

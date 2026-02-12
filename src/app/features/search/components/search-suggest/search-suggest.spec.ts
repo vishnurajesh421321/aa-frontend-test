@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchSuggest } from './search-suggest';
-import {Brewery} from '../../../models/breweries.interface';
+import {Brewery} from '../../models/breweries.interface';
 
 describe('SearchSuggest', () => {
   let component: SearchSuggest<Brewery>;

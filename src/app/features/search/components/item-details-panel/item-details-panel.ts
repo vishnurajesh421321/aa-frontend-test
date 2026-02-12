@@ -1,12 +1,12 @@
 import {Component, input, output} from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
-import {Brewery} from '../../../models/breweries.interface';
+import {Brewery} from '../../models/breweries.interface';
+import {Icon} from '../../../../shared/ui/icon/icon';
 type PanelState = 'open' | 'closed';
 
 @Component({
   selector: 'app-item-details-panel',
   imports: [
-    NgOptimizedImage
+    Icon
   ],
   templateUrl: './item-details-panel.html',
   styleUrl: './item-details-panel.scss',

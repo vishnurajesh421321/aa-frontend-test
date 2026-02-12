@@ -1,0 +1,11 @@
+<section class="search-history">
+  <h2>Search history</h2>
+
+  <ul class="search-history-list">
+    @for (item of searchHistory(); track item.id) {
+      <li class="search-history-item">
+        <app-history-item  (onRemove)="removeHistory(item)" [title]="item.name" [date]="(item.createdAt | date: 'yyyy-MM-dd') ?? ''"/>
+      </li>
+    }
+  </ul>
+</section>
