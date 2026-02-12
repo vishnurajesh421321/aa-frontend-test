@@ -5,20 +5,20 @@
       [formControl]="selectedItem"
       [loading]="breweryStore.loading()"
       [error]="breweryStore.error()?.toString() || ''"
-      [minQueryLength]="3"
+      [minQueryLength]="minQueryLength"
       (onSelectBrewery)="saveSelectedToHistory($event)"
       [items]="breweryStore.breweries()">
-      @if ((breweryStore.breweries().length || 0) > 4) {
+      @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {
         <div class="flex justify-end button-section">
           <button (click)="seeAll()" class="btn-primary">
-            See all results
+            {{pageSize() === minPageSize ?   'See all results' : 'See less results'}}
           </button>
         </div>
       }
     </app-search-suggest>
 
     <div class="search-history-wrapper">
-      <app-components/>
+      <app-search-history/>
     </div>
   </div>
 </div>

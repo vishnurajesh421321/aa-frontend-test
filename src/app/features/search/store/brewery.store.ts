@@ -6,6 +6,7 @@ import {ApiService} from '../services/api-service';
 import { tapResponse } from '@ngrx/operators';
 import {BreweryState} from '../models/brewery.state.interface';
 import {BreweriesParms} from '../models/breweries.params.type';
+import {Brewery} from '../models/breweries.interface';
 
 export const BreweryInitialState: BreweryState = {
   breweries: [],
@@ -24,6 +25,7 @@ export const BrewerySearchStore = signalStore(
       pipe(
         debounceTime(300),
         distinctUntilChanged(),
+        tap(() => patchState(store, { breweries: [] })),
         filter((params) => params.query !== ''),
         tap(() => patchState(store, { loading: true })),
         switchMap((params) => {
@@ -44,11 +46,14 @@ export const BrewerySearchStore = signalStore(
       searchBrewery(store.params());
     });
     return {
-      seQuery(query: string) {
+      setQuery(query: string) {
         patchState(store, {params: {...store.params(), query}});
       },
-      sePageSize(perPage: number) {
+      setPageSize(perPage: number) {
         patchState(store, {params: {...store.params(), per_page: perPage}});
+      },
+      setBreweries(breweries: Brewery[]) {
+        patchState(store, {breweries});
       }
     }
   })

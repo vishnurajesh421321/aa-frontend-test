@@ -7,7 +7,29 @@
   justify-content: space-between;
   border-radius: 5px;
   @include shadow();
+  cursor: pointer;
+  &:hover{
+    background-color: $secondary;
+  }
   span{
     color: $primary;
+    font-size: 14px;
+  }
+}
+.item-title{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  span{
+    &:first-child{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+    }
+    &:last-child {
+      align-self: flex-end;
+    }
   }
 }

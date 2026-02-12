@@ -1,7 +1,7 @@
 import {
   Component,
   DestroyRef,
-  effect,
+  effect, HostBinding,
   inject,
   input,
   OnInit,
@@ -12,7 +12,6 @@ import {Input} from '../../../../shared/ui/input/input';
 import { FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {debounceTime} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import { NgClass} from '@angular/common';
 import {CdkConnectedOverlay, CdkOverlayOrigin} from '@angular/cdk/overlay';
 import {Spinner} from '../../../../shared/ui/spinner/spinner';
 import {Brewery} from '../../models/breweries.interface';
@@ -23,7 +22,6 @@ import {ItemDetailsPanel} from '../item-details-panel/item-details-panel';
   imports: [
     ReactiveFormsModule,
     Input,
-    NgClass,
     CdkConnectedOverlay,
     CdkOverlayOrigin,
     Spinner,
@@ -33,6 +31,7 @@ import {ItemDetailsPanel} from '../item-details-panel/item-details-panel';
   styleUrl: './search-suggest.scss',
 })
 export class SearchSuggest implements OnInit {
+  @HostBinding('class') overlay = '';
   formControl = input.required<FormControl>()
   items = input.required<Brewery[] | null>()
   minQueryLength = input<number>();
@@ -62,11 +61,10 @@ export class SearchSuggest implements OnInit {
   ngOnInit() {
     this.query.valueChanges.pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef)).subscribe((value: string) => {
       if(value) {
-        if(!this.query.invalid) {
-          this.onSearch.emit(value);
-        }
-        this.isOpen.set(true)
+        this.isOpen.set(true);
+        this.overlay = 'active'
       }
+      this.onSearch.emit(value);
     })
   }
 
@@ -77,10 +75,20 @@ export class SearchSuggest implements OnInit {
 
   protected restValue() {
     this.selectedBrewery = null;
+    this.isOpen.set(false);
+    this.overlay = ''
   }
 
   protected onClosePanel() {
     this.selectedBrewery = null;
     this.isOpen.set(true);
+    this.overlay = 'active'
+  }
+
+  protected openDropdown(isFocus: boolean) {
+    if(this.query.value && !this.isOpen()) {
+      this.isOpen.set(isFocus);
+      this.overlay = isFocus ? 'active': '';
+    }
   }
 }

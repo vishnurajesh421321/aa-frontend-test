@@ -1,8 +1,6 @@
-import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {SearchSuggest} from './components/search-suggest/search-suggest';
 import {FormControl} from '@angular/forms';
-import {filter} from 'rxjs';
-import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
 import {BrewerySearchStore} from './store/brewery.store';
 import {SearchHistory} from '../search-history/search-history';
 import {SearchHistoryService} from '../../shared/services/search-history-service';
@@ -18,24 +16,28 @@ import {Brewery} from './models/breweries.interface';
   styleUrl: './search.scss',
   providers: [BrewerySearchStore],
 })
-export class Search implements OnInit {
-   destroyRef = inject(DestroyRef);
+export class Search {
    breweryStore =inject(BrewerySearchStore)
-  searchHistoryService = inject(SearchHistoryService);
+   searchHistoryService = inject(SearchHistoryService);
    protected selectedItem: FormControl = new FormControl();
-   query = signal('')
-   queryObservable = toObservable(this.query)
-   ngOnInit() {
-     this.queryObservable.pipe(takeUntilDestroyed(this.destroyRef), filter(q => q.length > 2)).subscribe(value => {
-       this.breweryStore.seQuery(value);
-     })
-  }
+   pageSize = this.breweryStore.params.per_page;
+   maxPageSize = 10;
+   minPageSize = 5;
+   minQueryLength = 3;
    getQuery(query:string) {
-     this.query.set(query)
+     if(query.length < this.minQueryLength) {
+       this.breweryStore.setBreweries([])
+     } else {
+       this.breweryStore.setQuery(query);
+     }
    }
 
   protected seeAll() {
-    this.breweryStore.sePageSize(10);
+    if(this.pageSize() < this.maxPageSize) {
+      this.breweryStore.setPageSize(this.maxPageSize);
+    } else {
+      this.breweryStore.setPageSize(this.minPageSize);
+    }
   }
 
   protected saveSelectedToHistory(brewery: Brewery) {

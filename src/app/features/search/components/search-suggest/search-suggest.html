@@ -1,12 +1,13 @@
-<div [ngClass]="{'active': isOpen() && !selectedBrewery}">
-  <app-input (keydown.escape)="isOpen.set(false)" cdkOverlayOrigin #origin="cdkOverlayOrigin" [formControl]="query" placeHolder="Seach here..." icon="search"/>
+<div>
+    <app-input cdkOverlayOrigin #origin="cdkOverlayOrigin" (keydown.escape)="isOpen.set(false)"
+               (onFocus)="openDropdown($event)"
+               [formControl]="query"
+               placeHolder="Seach here..." icon="search"/>
   <ng-template
     cdkConnectedOverlay
-    [cdkConnectedOverlayOrigin]="origin"
     [cdkConnectedOverlayOpen]="isOpen()"
-    [cdkConnectedOverlayHasBackdrop]="true"
-    [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
-    (backdropClick)="isOpen.set(false)"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayHasBackdrop]="false"
     (overlayOutsideClick)="restValue()"
     [cdkConnectedOverlayWidth]="origin.elementRef.nativeElement.offsetWidth"
     (detach)="isOpen.set(false)">

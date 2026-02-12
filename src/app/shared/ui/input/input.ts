@@ -1,4 +1,4 @@
-import {Component, forwardRef, input} from '@angular/core';
+import {Component, forwardRef, input, output} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -21,7 +21,8 @@ export class Input implements ControlValueAccessor {
    inputType = input<'text' | 'password' | 'email'>('text');
    icon = input<string | null>(null);
    placeHolder = input<string>('');
-
+   onFocus = output<boolean>()
+   isFocused = false;
    value = '';
    disabled = false;
 
@@ -48,5 +49,12 @@ export class Input implements ControlValueAccessor {
 
   protected handleBlur() {
     this.onTouched()
+    this.isFocused = false;
+    this.onFocus.emit(this.isFocused);
+  }
+
+  protected handleFocus() {
+    this.isFocused = true;
+    this.onFocus.emit(this.isFocused);
   }
 }
