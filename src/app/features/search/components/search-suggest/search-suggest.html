@@ -1,0 +1,52 @@
+<div [ngClass]="{'active': isOpen() && !selectedBrewery}">
+  <app-input (keydown.escape)="isOpen.set(false)" cdkOverlayOrigin #origin="cdkOverlayOrigin" [formControl]="query" placeHolder="Seach here..." icon="search"/>
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="isOpen()"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+    (backdropClick)="isOpen.set(false)"
+    (overlayOutsideClick)="restValue()"
+    [cdkConnectedOverlayWidth]="origin.elementRef.nativeElement.offsetWidth"
+    (detach)="isOpen.set(false)">
+    @if(selectedBrewery) {
+      <app-item-details-panel (onClose)="onClosePanel()" [brewery]="selectedBrewery"/>
+    } @else {
+      @if(loading()) {
+        <div class="empty-item">
+          <app-spinner/>
+        </div>
+      } @else {
+        @if (query.hasError('minlength')) {
+          <div class="empty-item">
+            <span>Type more characters…</span>
+          </div>
+        } @else if (error()) {
+          <div class="empty-item">
+            <span>{{ error() }}</span>
+          </div>
+        } @else if (items()?.length === 0) {
+          <div class="empty-item">
+            <span>{{ emptyMessage() ?? 'No items found' }}</span>
+          </div>
+        } @else {
+          <div class="dropdown-wrapper">
+            <ul class="drop-down-list">
+              @for (item of items(); track item.id) {
+                <li>
+                  <button type="button" (click)="selectBrewery(item)">
+                    {{ item.name }}
+                  </button>
+                </li>
+              }
+            </ul>
+            @if (items()?.length) {
+              <ng-content></ng-content>
+            }
+          </div>
+        }
+      }
+    }
+  </ng-template>
+</div>

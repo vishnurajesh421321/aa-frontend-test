@@ -1,5 +1,5 @@
 import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
-import {SearchSuggest} from '../../../../shared/ui/search-suggest/search-suggest';
+import {SearchSuggest} from '../search-suggest/search-suggest';
 import {FormControl} from '@angular/forms';
 import {Brewery} from '../../../models/breweries.interface';
 import {HttpFetch} from '../../../../core/http/http-fetch';
@@ -25,7 +25,7 @@ export class Search implements OnInit {
    query = signal('')
    queryObservable = toObservable(this.query)
    ngOnInit() {
-     this.queryObservable.pipe(takeUntilDestroyed(this.destroyRef), filter(q => q !== ''), switchMap((query) =>
+     this.queryObservable.pipe(takeUntilDestroyed(this.destroyRef), filter(q => q.length > 2), switchMap((query) =>
       this.getAllBreweries(query)
     )).subscribe()
   }

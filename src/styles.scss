@@ -2,6 +2,7 @@
 @use "./styles/utilities/flex" as *;
 @use "./styles/abstracts/variable" as *;
 @use "./styles/abstracts/mixins" as *;
+@use "./styles/abstracts/functions" as *;
 html, body {
   height: 100%;
   width: 100%;
@@ -23,3 +24,4 @@ h1 {
   border-radius: $primary-radius;
   font-size: 15px;
 }
+

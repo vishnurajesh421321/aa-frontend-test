@@ -1,3 +1,5 @@
+@use "./styles/abstracts/breakpoints" as *;
+@use "sass:map";
 
 @mixin linear-gradient($from, $to) {
   background: $from;
@@ -10,4 +12,16 @@
   -webkit-box-shadow: $x $y $blur $spread $color;
   -moz-box-shadow: $x $y $blur $spread $color;
   box-shadow: $x $y $blur $spread $color;
+}
+
+@mixin responsive($size) {
+  $width: map.get($breakpoints, $size);
+
+  @if $width == null {
+    @error "Breakpoint `#{$size}` not found. Available: #{map.keys($breakpoints)}";
+  }
+
+  @media (min-width: $width) {
+    @content;
+  }
 }

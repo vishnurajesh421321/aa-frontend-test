@@ -1,5 +1,10 @@
+@use "./styles/abstracts/mixins" as *;
 .search-box {
-  min-width: 400px;
+  width: 80%;
+  @include responsive(medium) {
+    width: 400px;
+  }
+
 }
 .button-section{
   padding: 0.5rem 1rem;

@@ -2,16 +2,18 @@
   <div class="search-box">
     <app-search-suggest
       (onSearch)="getQuery($event)"
-      [optionLabel]="'name'"
       [formControl]="selectedItem"
       [loading]="breweriesRequest.isLoading()"
       [error]="breweriesRequest.error()"
-      [itemKey]="'name'" [items]="breweriesRequest.data()">
-      <div class="flex justify-end button-section">
-        <button (click)="seeAll()" class="btn-primary">
-          See all results
-        </button>
-      </div>
+      [minQueryLength]="3"
+      [items]="breweriesRequest.data()">
+      @if ((breweriesRequest?.data()?.length || 0) > 4) {
+        <div class="flex justify-end button-section">
+          <button (click)="seeAll()" class="btn-primary">
+            See all results
+          </button>
+        </div>
+      }
     </app-search-suggest>
   </div>
 </div>
