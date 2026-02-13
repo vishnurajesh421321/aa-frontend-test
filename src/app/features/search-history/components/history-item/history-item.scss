@@ -1,5 +1,4 @@
-@use './styles/abstracts/variable' as *;
-@use './styles/abstracts/mixins' as *;
+@use 'styles/abstracts' as *;
 :host {
   padding: 0.5rem 1rem;
   background: white;

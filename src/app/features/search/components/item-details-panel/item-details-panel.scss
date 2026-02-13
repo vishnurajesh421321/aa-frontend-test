@@ -1,6 +1,4 @@
-@use './styles/abstracts/variable' as *;
-@use './styles/abstracts/functions' as *;
-@use './styles/abstracts/mixins' as *;
+@use 'styles/abstracts' as *;
 :host {
   width: 100%;
 }

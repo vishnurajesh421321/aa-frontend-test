@@ -1,5 +1,4 @@
-@use './styles/abstracts/mixins' as *;
-@use './styles/abstracts/variable' as *;
+@use 'styles/abstracts' as *;
 .custom-input {
   position: relative;
   input {

@@ -4,7 +4,7 @@
   <ul class="search-history-list">
     @if (searchHistory().length) {
       @for (item of searchHistory(); track item.id) {
-        <li class="search-history-item">
+        <li tabindex="0" (keydown.enter)="handleHistorySelect(item)" class="search-history-item">
           <app-history-item
             (click)="handleHistorySelect(item)"
             (remove)="removeHistory(item)"

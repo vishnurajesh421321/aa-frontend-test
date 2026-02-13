@@ -1,8 +1,6 @@
-@use './styles/base/reset' as *;
-@use './styles/utilities/flex' as *;
-@use './styles/abstracts/variable' as *;
-@use './styles/abstracts/mixins' as *;
-@use './styles/abstracts/functions' as *;
+@use 'styles/base/reset' as *;
+@use 'styles/utilities/flex' as *;
+@use 'styles/abstracts' as *;
 html,
 body {
   height: 100%;
