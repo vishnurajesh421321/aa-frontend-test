@@ -1,13 +1,13 @@
-@use "./styles/abstracts/variable" as *;
+@use './styles/abstracts/variable' as *;
 .loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid $primary-bg;
+  border-style: solid;
+  border-color: $primary-bg;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+  display: block;
 }
 
 @keyframes rotation {

@@ -1,12 +1,12 @@
-@use "./styles/abstracts/mixins" as *;
-@use "./styles/abstracts/variable" as *;
-.custom-input{
+@use './styles/abstracts/mixins' as *;
+@use './styles/abstracts/variable' as *;
+.custom-input {
   position: relative;
-  input{
+  input {
     flex: 1;
     height: 50px;
     border: none;
-    border-radius:$primary-radius;
+    border-radius: $primary-radius;
     padding: 0 2.4rem 0 1rem;
     &:focus-visible {
       outline: none;

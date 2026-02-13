@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import {Search} from '../../../features/search/search';
-import {SearchSuggest} from '../../../features/search/components/search-suggest/search-suggest';
+import { Search } from '../../../features/search/search';
 
 @Component({
   selector: 'app-main-section',
-  imports: [
-    Search,
-  ],
+  imports: [Search],
   templateUrl: './main-section.html',
   styleUrl: './main-section.scss',
 })
-export class MainSection {
-
-}
+export class MainSection {}

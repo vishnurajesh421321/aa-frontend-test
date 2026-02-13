@@ -1,5 +1,5 @@
 @function blackAlpha($alpha) {
-@return rgba(0,0,0, $alpha);
+  @return rgba(0, 0, 0, $alpha);
 }
 @function greyAlpha($alpha) {
   @return rgba(128, 128, 128, $alpha);

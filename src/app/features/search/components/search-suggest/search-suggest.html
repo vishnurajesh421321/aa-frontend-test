@@ -1,53 +1,54 @@
-<div>
-    <app-input cdkOverlayOrigin #origin="cdkOverlayOrigin" (keydown.escape)="isOpenOverlay.set(false)"
-               (onFocus)="openDropdown($event)"
-               [formControl]="query"
-               placeHolder="Seach here..." icon="search"/>
+<section>
+  <app-input
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+    (keydown.escape)="isOpenOverlay.set(false)"
+    (focusChange)="openDropdown($event)"
+    [formControl]="query"
+    placeHolder="Seach here..."
+    icon="search"
+    [loading]="loading()"
+    [clearable]="true"
+  />
+  @if (query.hasError('minlength')) {
+    <div class="form-error">
+      <span>Type more characters…</span>
+    </div>
+  }
   <ng-template
     cdkConnectedOverlay
     [cdkConnectedOverlayOpen]="isOpenOverlay()"
     [cdkConnectedOverlayOrigin]="origin"
     [cdkConnectedOverlayHasBackdrop]="false"
-    (overlayOutsideClick)="restValue()"
+    (overlayOutsideClick)="resetValue()"
     [cdkConnectedOverlayWidth]="origin.elementRef.nativeElement.offsetWidth"
-    (detach)="isOpenOverlay.set(false)">
-    @if(isOpenDetailsPanel()) {
-      <app-item-details-panel [panelState]="isOpenDetailsPanel() ? 'open':'closed'" (panelStateChange)="onClosePanel()" [brewery]="selectedBrewery"/>
+    (detach)="isOpenOverlay.set(false)"
+  >
+    @if (isOpenDetailsPanel()) {
+      <app-item-details-panel
+        [panelState]="isOpenDetailsPanel() ? 'open' : 'closed'"
+        (panelStateChange)="onClosePanel()"
+        [brewery]="selectedBrewery"
+      />
     } @else {
-      @if(loading()) {
+      @if (error() || items()?.length === 0) {
         <div class="empty-item">
-          <app-spinner/>
+          <span>{{ error() || 'No items found' }}</span>
         </div>
       } @else {
-        @if (query.hasError('minlength')) {
-          <div class="empty-item">
-            <span>Type more characters…</span>
-          </div>
-        } @else if (error()) {
-          <div class="empty-item">
-            <span>{{ error() }}</span>
-          </div>
-        } @else if (items()?.length === 0) {
-          <div class="empty-item">
-            <span>{{ emptyMessage() ?? 'No items found' }}</span>
-          </div>
-        } @else {
-          <div class="dropdown-wrapper">
-            <ul class="drop-down-list">
-              @for (item of items(); track item.id) {
-                <li>
-                  <button type="button" (click)="selectBrewery(item)">
-                    {{ item.name }}
-                  </button>
-                </li>
-              }
-            </ul>
-            @if (items()?.length) {
-              <ng-content></ng-content>
+        <div class="dropdown-wrapper">
+          <ul class="drop-down-list">
+            @for (item of items(); track item.id) {
+              <li>
+                <button type="button" (click)="selectBrewery(item)">
+                  {{ item.name }}
+                </button>
+              </li>
             }
-          </div>
-        }
+          </ul>
+          <ng-content></ng-content>
+        </div>
       }
     }
   </ng-template>
-</div>
+</section>

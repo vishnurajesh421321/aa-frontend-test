@@ -1,8 +1,20 @@
 <div class="flex items-center custom-input">
-  <input #inputRef (input)="handleInput($event)" [value]="value" (focus)="handleFocus()" (blur)="handleBlur()" [placeholder]="placeHolder()" [type]="inputType()">
-  @if (icon()) {
-    <div (click)="inputRef.focus()" class="icon">
-      <img width="25" height="25" [ngSrc]="`assets/icons/${icon()}.svg`" alt="search">
-    </div>
-  }
+  <input
+    #inputRef
+    (input)="handleInput($event)"
+    [value]="value"
+    (focus)="handleFocus()"
+    (blur)="handleBlur()"
+    [placeholder]="placeHolder()"
+    [type]="inputType()"
+  />
+  <button (click)="handleButtonActions(inputRef)" class="icon">
+    @if (loading()) {
+      <app-spinner [width]="20" [height]="20" [borderWidth]="2"></app-spinner>
+    } @else if (clearable() && value) {
+      <img width="15" height="15" ngSrc="assets/icons/close.svg" alt="clear" />
+    } @else if (icon()) {
+      <img width="25" height="25" [ngSrc]="`assets/icons/${icon()}.svg`" alt="search" />
+    }
+  </button>
 </div>

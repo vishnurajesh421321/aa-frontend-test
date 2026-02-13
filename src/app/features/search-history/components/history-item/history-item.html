@@ -1,13 +1,9 @@
-<div title="{{title()}}" class="item-title">
-  <span>{{title()}}</span>
+<p title="{{ title() }}" class="item-title">
+  <span>{{ title() }}</span>
   <span class="dash">-</span>
-  <span>{{date()}}</span>
-      </div>
+  <span>{{ date() }}</span>
+</p>
 
-<button
-  type="button"
-  class="search-history__remove"
-  (click)="handleOnRemove($event)"
->
-  <app-icon [width]="15" [height]="15" icon="close"/>
+<button type="button" class="search-history__remove" (click)="handleOnRemove($event)">
+  <app-icon [width]="15" [height]="15" icon="close" />
 </button>

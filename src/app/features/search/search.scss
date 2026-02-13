@@ -1,12 +1,11 @@
-@use "../../../styles/abstracts/mixins" as *;
+@use '../../../styles/abstracts/mixins' as *;
 .search-box {
   width: 80%;
   @include responsive(small) {
     width: 400px;
   }
-
 }
-.button-section{
+.button-section {
   padding: 0.5rem 1rem;
 }
 .search-history-wrapper {

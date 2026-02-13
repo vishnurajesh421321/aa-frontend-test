@@ -1,6 +1,6 @@
-@use "./styles/abstracts/variable" as *;
-@use "./styles/abstracts/mixins" as *;
-:host{
+@use './styles/abstracts/variable' as *;
+@use './styles/abstracts/mixins' as *;
+:host {
   padding: 0.5rem 1rem;
   background: white;
   display: flex;
@@ -8,15 +8,15 @@
   border-radius: 5px;
   @include shadow();
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: $secondary;
   }
-  span{
+  span {
     color: $primary;
     font-size: 14px;
   }
 }
-.item-title{
+.item-title {
   display: flex;
   gap: 5px;
   width: 100%;
@@ -26,8 +26,8 @@
     flex-direction: row;
     align-items: center;
   }
-  span{
-    &:first-child{
+  span {
+    &:first-child {
       order: 1;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -38,7 +38,7 @@
         order: unset;
       }
     }
-    &.dash{
+    &.dash {
       display: none;
       font-weight: bolder;
       line-height: 1;

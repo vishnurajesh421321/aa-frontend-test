@@ -1,25 +1,26 @@
-<div class="flex flex-center">
-  <div class="search-box">
+<section class="flex flex-center">
+  <article class="search-box">
     <app-search-suggest
-      (onSearch)="getQuery($event)"
+      (searchQuery)="getQuery($event)"
       [loading]="breweryStore.loading()"
       [error]="breweryStore.error()?.toString() || ''"
       [minQueryLength]="minQueryLength"
       [selectedSearchHistory]="breweryStore.selectedHistory()"
       (brewerySelectChange)="saveSelectedToHistory($event)"
-      (onCloseDetailsPanel)="handleDetailsPanelChange($event)"
-      [items]="breweryStore.breweries()">
+      (closeDetailsPanel)="handleDetailsPanelChange($event)"
+      [items]="breweryStore.breweries()"
+    >
       @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {
         <div class="flex justify-end button-section">
           <button (click)="seeAll()" class="btn-primary">
-            {{pageSize() === minPageSize ?   'See all results' : 'See less results'}}
+            {{ pageSize() === minPageSize ? 'See all results' : 'See less results' }}
           </button>
         </div>
       }
     </app-search-suggest>
 
     <div class="search-history-wrapper">
-      <app-search-history/>
+      <app-search-history />
     </div>
-  </div>
-</div>
+  </article>
+</section>

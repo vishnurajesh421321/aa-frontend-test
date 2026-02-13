@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import {Logo} from '../../../shared/ui/logo/logo';
+import { Logo } from '../../../shared/ui/logo/logo';
 
 @Component({
   selector: 'app-header',
-  imports: [
-    Logo
-  ],
+  imports: [Logo],
   templateUrl: './header.html',
-  styleUrls: ['./header.scss']
+  styleUrls: ['./header.scss'],
 })
-export class Header {
-
-}
+export class Header {}

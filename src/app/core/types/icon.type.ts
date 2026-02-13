@@ -1,3 +1,1 @@
-export type IconType =
-  'search' |
-  'close';
+export type IconType = 'search' | 'close';

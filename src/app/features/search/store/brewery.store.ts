@@ -1,15 +1,15 @@
-import {patchState, signalStore, withMethods, withProps, withState} from '@ngrx/signals';
-import { effect, inject} from '@angular/core';
-import {rxMethod} from '@ngrx/signals/rxjs-interop';
-import { debounceTime, distinctUntilChanged, filter, pipe, switchMap, tap} from 'rxjs';
-import {ApiService} from '../services/api-service';
+import { patchState, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
+import { effect, inject } from '@angular/core';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { debounceTime, distinctUntilChanged, filter, pipe, switchMap, tap } from 'rxjs';
+import { ApiService } from '../services/api-service';
 import { tapResponse } from '@ngrx/operators';
-import {BreweryState} from '../models/brewery.state.interface';
-import {BreweriesParms} from '../models/breweries.params.type';
-import {Brewery} from '../models/breweries.interface';
-import {SearchHistoryService} from '../../../shared/services/search-history-service';
+import { BreweryState } from '../models/brewery.state.interface';
+import { BreweriesParams } from '../models/breweries.params.type';
+import { Brewery } from '../models/breweries.interface';
+import { SearchHistoryService } from '../../../shared/services/search-history-service';
 
-export const BreweryInitialState: BreweryState = {
+export const breweryInitialState: BreweryState = {
   breweries: [],
   loading: false,
   error: null,
@@ -19,15 +19,15 @@ export const BreweryInitialState: BreweryState = {
     per_page: 5,
     query: '',
   },
-}
+};
 export const BrewerySearchStore = signalStore(
-  withState<BreweryState>(BreweryInitialState),
+  withState<BreweryState>(breweryInitialState),
   withProps(() => ({
     apiService: inject(ApiService),
     historyService: inject(SearchHistoryService),
   })),
   withMethods((store) => {
-    const searchBrewery = rxMethod<BreweriesParms>(
+    const searchBrewery = rxMethod<BreweriesParams>(
       pipe(
         debounceTime(300),
         distinctUntilChanged(),
@@ -37,33 +37,32 @@ export const BrewerySearchStore = signalStore(
         switchMap((params) => {
           return store.apiService.searchBrewery(params).pipe(
             tapResponse({
-              next: (breweries) =>
-                patchState(store, { breweries, loading: false }),
+              next: (breweries) => patchState(store, { breweries, loading: false }),
               error: (err) => {
                 patchState(store, { loading: false });
                 console.error(err);
               },
-            })
+            }),
           );
-        })
-      )
-    )
+        }),
+      ),
+    );
     effect(() => {
       searchBrewery(store.params());
     });
     return {
       setQuery(query: string) {
-        patchState(store, {params: {...store.params(), query}});
+        patchState(store, { params: { ...store.params(), query } });
       },
       setPageSize(perPage: number) {
-        patchState(store, {params: {...store.params(), per_page: perPage}});
+        patchState(store, { params: { ...store.params(), per_page: perPage } });
       },
       setBreweries(breweries: Brewery[]) {
-        patchState(store, {breweries});
+        patchState(store, { breweries });
       },
       setSelectedHistory(selectedHistory: Brewery | null) {
-        patchState(store, {selectedHistory});
-      }
-    }
-  })
+        patchState(store, { selectedHistory });
+      },
+    };
+  }),
 );

@@ -1,9 +1,8 @@
-import {ErrorHandler, Injectable} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
+import { ErrorHandler, Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
-export class GlobalErrorHandler implements ErrorHandler{
-  constructor() {}
+export class GlobalErrorHandler implements ErrorHandler {
   handleError(error: unknown): void {
     if (error instanceof HttpErrorResponse) {
       this.handleHttpError(error);

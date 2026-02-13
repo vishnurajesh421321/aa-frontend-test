@@ -1,9 +1,10 @@
-@use "./styles/base/reset" as *;
-@use "./styles/utilities/flex" as *;
-@use "./styles/abstracts/variable" as *;
-@use "./styles/abstracts/mixins" as *;
-@use "./styles/abstracts/functions" as *;
-html, body {
+@use './styles/base/reset' as *;
+@use './styles/utilities/flex' as *;
+@use './styles/abstracts/variable' as *;
+@use './styles/abstracts/mixins' as *;
+@use './styles/abstracts/functions' as *;
+html,
+body {
   height: 100%;
   width: 100%;
   overflow-x: hidden;

@@ -8,9 +8,8 @@ describe('SearchHistory', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchHistory]
-    })
-    .compileComponents();
+      imports: [SearchHistory],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SearchHistory);
     component = fixture.componentInstance;

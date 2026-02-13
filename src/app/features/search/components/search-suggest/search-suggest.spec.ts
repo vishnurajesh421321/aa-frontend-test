@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchSuggest } from './search-suggest';
-import {Brewery} from '../../models/breweries.interface';
+import { Brewery } from '../../models/breweries.interface';
 
 describe('SearchSuggest', () => {
   let component: SearchSuggest<Brewery>;
@@ -9,9 +9,8 @@ describe('SearchSuggest', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchSuggest]
-    })
-    .compileComponents();
+      imports: [SearchSuggest],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SearchSuggest<Brewery>);
     component = fixture.componentInstance;

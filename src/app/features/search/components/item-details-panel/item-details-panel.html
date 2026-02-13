@@ -1,8 +1,8 @@
 <section class="details-panel">
   <header class="flex justify-between">
-    <h2>{{brewery()?.name}}</h2>
+    <h2>{{ brewery()?.name }}</h2>
     <button (click)="closePanel()">
-      <app-icon [width]="15" [height]="15" icon="close"/>
+      <app-icon [width]="15" [height]="15" icon="close" />
     </button>
   </header>
 
@@ -10,27 +10,27 @@
     <dl class="details-list">
       <div class="details-list-item">
         <dt>Type:</dt>
-        <dd>{{brewery()?.brewery_type}}</dd>
+        <dd>{{ brewery()?.brewery_type }}</dd>
       </div>
 
       <div class="details-list-item">
         <dt>City:</dt>
-        <dd>{{brewery()?.city}}</dd>
+        <dd>{{ brewery()?.city }}</dd>
       </div>
 
       <div class="details-list-item">
         <dt>State/Province:</dt>
-        <dd>{{brewery()?.state}}</dd>
+        <dd>{{ brewery()?.state }}</dd>
       </div>
 
       <div class="details-list-item">
         <dt>Country:</dt>
-        <dd>{{brewery()?.country}}</dd>
+        <dd>{{ brewery()?.country }}</dd>
       </div>
 
       <div class="details-list-item">
         <dt>Phone:</dt>
-        <dd>{{brewery()?.phone}}</dd>
+        <dd>{{ brewery()?.phone }}</dd>
       </div>
 
       <div class="details-list-item">
@@ -44,7 +44,7 @@
 
       <div class="details-list-item">
         <dt>Street:</dt>
-        <dd>{{brewery()?.street}}</dd>
+        <dd>{{ brewery()?.street }}</dd>
       </div>
     </dl>
   </div>

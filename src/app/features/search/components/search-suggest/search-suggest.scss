@@ -1,7 +1,7 @@
-@use "./styles/abstracts/variable" as *;
-@use "./styles/abstracts/functions" as *;
-@use "./styles/abstracts/mixins" as *;
-app-input{
+@use './styles/abstracts/variable' as *;
+@use './styles/abstracts/functions' as *;
+@use './styles/abstracts/mixins' as *;
+app-input {
   position: relative;
   z-index: 2;
 }
@@ -17,7 +17,7 @@ app-input{
   overflow: hidden;
   li {
     border-bottom: 1px solid $primary;
-    button{
+    button {
       width: 100%;
       height: 100%;
       display: block;
@@ -31,10 +31,10 @@ app-input{
     }
   }
 }
-:host.active{
+:host.active {
   display: block;
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     left: 0;
@@ -54,11 +54,19 @@ app-input{
   justify-content: center;
   border-radius: $primary-radius;
   margin-top: 5px;
-  span, app-spinner{
+  span,
+  app-spinner {
     font-size: 1rem;
     color: $primary;
     display: block;
     line-height: 1px;
   }
 }
-
+.form-error {
+  background-color: white;
+  color: $primary;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: $primary-radius;
+  @include shadow();
+}

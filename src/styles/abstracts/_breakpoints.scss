@@ -1,4 +1,4 @@
-@use "./styles/abstracts/variable" as *;
+@use './styles/abstracts/variable' as *;
 $breakpoints: (
   xs-small: $mobile-small,
   small: $mobile,

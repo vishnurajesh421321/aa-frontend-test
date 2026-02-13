@@ -1,14 +1,12 @@
-import {Component, input} from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
+import { Component, input } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.html',
-  imports: [
-    NgOptimizedImage
-  ]
+  imports: [NgOptimizedImage],
 })
 export class Logo {
-   width = input.required<number>()
-   height = input.required<number>()
+  width = input.required<number>();
+  height = input.required<number>();
 }

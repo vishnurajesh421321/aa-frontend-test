@@ -9,11 +9,11 @@ export class SessionService {
   }
   getItem<T>(key: string): T | null {
     const value = localStorage.getItem(key);
-    if(!value) {
+    if (!value) {
       console.error(`No item found on this key ${key}`);
       return null;
     }
-    return JSON.parse(value) as T
+    return JSON.parse(value) as T;
   }
   removeSession(key: string): void {
     localStorage.removeItem(key);
