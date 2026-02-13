@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {SearchSuggest} from './components/search-suggest/search-suggest';
 import {FormControl} from '@angular/forms';
 import {BrewerySearchStore} from './store/brewery.store';
@@ -15,6 +15,7 @@ import {Brewery} from './models/breweries.interface';
   templateUrl: './search.html',
   styleUrl: './search.scss',
   providers: [BrewerySearchStore],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Search {
    breweryStore =inject(BrewerySearchStore)

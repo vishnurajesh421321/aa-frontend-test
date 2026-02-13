@@ -34,16 +34,15 @@ import {ItemDetailsPanel} from '../item-details-panel/item-details-panel';
 })
 export class SearchSuggest implements OnInit{
   @HostBinding('class') overlayHostClass = '';
-  formControl = input.required<FormControl>()
   items = input.required<Brewery[] | null>()
   minQueryLength = input<number>();
   selectedSearchHistory = input<Brewery | null>(null);
-  selectedBreweryChange = output<Brewery | null>()
+  brewerySelectChange = output<Brewery | null>()
   emptyMessage = input<string>();
   loading = input<boolean>(true);
   error = input<string>('');
   onOpenOverlay = output<boolean>()
-  onOpenDetailsPanel = output<boolean>()
+  onCloseDetailsPanel = output<boolean>()
   icon = input<string | null>(null);
   placeHolder = input<string>('');
   onSearch = output<string>()
@@ -83,23 +82,23 @@ export class SearchSuggest implements OnInit{
 
   protected selectBrewery(item: Brewery) {
     this.selectedBrewery = item;
-    this.selectedBreweryChange.emit(item)
+    this.brewerySelectChange.emit(item)
     this.isOpenDetailsPanel.set(true);
     this.query.patchValue(item.name, {emitEvent: false});
   }
 
   protected restValue() {
-    this.selectedBreweryChange.emit(null);
+    this.brewerySelectChange.emit(null);
     this.isOpenOverlay.set(false);
     this.isOpenDetailsPanel.set(false);
     this.overlayHostClass = ''
   }
 
   protected onClosePanel() {
-    this.selectedBreweryChange.emit(null);
+    this.brewerySelectChange.emit(null);
     this.isOpenOverlay.set(true);
     this.isOpenDetailsPanel.set(false);
-    this.onOpenDetailsPanel.emit(this.isOpenDetailsPanel())
+    this.onCloseDetailsPanel.emit(this.isOpenDetailsPanel())
     this.overlayHostClass = 'active'
   }
 

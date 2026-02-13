@@ -15,7 +15,8 @@ export class HistoryItem {
     date = input.required<string>()
     onRemove = output<string>()
 
-  protected handleOnRemove() {
+  protected handleOnRemove(event: MouseEvent): void {
+      event.stopPropagation();
     this.onRemove.emit(this.title())
   }
 }

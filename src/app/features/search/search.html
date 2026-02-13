@@ -2,13 +2,12 @@
   <div class="search-box">
     <app-search-suggest
       (onSearch)="getQuery($event)"
-      [formControl]="selectedItem"
       [loading]="breweryStore.loading()"
       [error]="breweryStore.error()?.toString() || ''"
       [minQueryLength]="minQueryLength"
       [selectedSearchHistory]="breweryStore.selectedHistory()"
-      (selectedBreweryChange)="saveSelectedToHistory($event)"
-      (onOpenDetailsPanel)="handleDetailsPanelChange($event)"
+      (brewerySelectChange)="saveSelectedToHistory($event)"
+      (onCloseDetailsPanel)="handleDetailsPanelChange($event)"
       [items]="breweryStore.breweries()">
       @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {
         <div class="flex justify-end button-section">
