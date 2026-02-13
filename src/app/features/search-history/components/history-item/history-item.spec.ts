@@ -13,6 +13,8 @@ describe('HistoryItem', () => {
 
     fixture = TestBed.createComponent(HistoryItem);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('title', 'TEST TITLE');
+    fixture.componentRef.setInput('date', '2026-02-13');
     await fixture.whenStable();
   });
 
