@@ -6,5 +6,6 @@ export interface BreweryState  {
   breweries: Brewery[],
   loading: boolean,
   error: HttpErrorResponse | null,
-  params: BreweriesParms
+  params: BreweriesParms;
+  selectedHistory: Brewery | null;
 }

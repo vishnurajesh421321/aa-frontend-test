@@ -1,6 +1,7 @@
 @use "./styles/abstracts/variable" as *;
 $breakpoints: (
-  small: $mobile-landscape,
+  xs-small: $mobile-small,
+  small: $mobile,
   medium: $tablet,
   large: $desktop,
 );

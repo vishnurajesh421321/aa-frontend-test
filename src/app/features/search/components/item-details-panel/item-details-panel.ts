@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
 import {Brewery} from '../../models/breweries.interface';
 import {Icon} from '../../../../shared/ui/icon/icon';
 type PanelState = 'open' | 'closed';
@@ -10,12 +10,14 @@ type PanelState = 'open' | 'closed';
   ],
   templateUrl: './item-details-panel.html',
   styleUrl: './item-details-panel.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailsPanel {
-   brewery = input.required<Brewery>();
-   onClose = output<PanelState>()
+   brewery = input.required<Brewery | null>();
+   panelState = input<PanelState>('closed');
+   panelStateChange = output<PanelState>()
 
   protected closePanel() {
-    this.onClose.emit('closed')
+    this.panelStateChange.emit('closed')
   }
 }

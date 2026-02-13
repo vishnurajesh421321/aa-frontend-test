@@ -9,5 +9,5 @@ export interface Brewery {
   website_url: string;
   state: string;
   street: string;
+  createdAt?: string
 }
-export type BrewerySearchHistory = Brewery & { createdAt: string };

@@ -1,7 +1,7 @@
 @use "../../../styles/abstracts/mixins" as *;
 .search-box {
   width: 80%;
-  @include responsive(medium) {
+  @include responsive(small) {
     width: 400px;
   }
 

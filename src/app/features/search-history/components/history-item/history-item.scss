@@ -18,18 +18,43 @@
 }
 .item-title{
   display: flex;
-  align-items: center;
   gap: 5px;
   width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  @include responsive(small) {
+    flex-direction: row;
+    align-items: center;
+  }
   span{
     &:first-child{
+      order: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       max-width: 200px;
+      font-size: 1rem;
+      @include responsive(small) {
+        order: unset;
+      }
+    }
+    &.dash{
+      display: none;
+      font-weight: bolder;
+      line-height: 1;
+      @include responsive(small) {
+        display: block;
+      }
     }
     &:last-child {
-      align-self: flex-end;
+      font-size: 0.8rem;
+      @include responsive(small) {
+        align-self: unset;
+        font-size: 14px;
+      }
+      @include responsive(small) {
+        align-self: flex-end;
+      }
     }
   }
 }

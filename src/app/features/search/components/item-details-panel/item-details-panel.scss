@@ -1,5 +1,6 @@
 @use "./styles/abstracts/variable" as *;
 @use "./styles/abstracts/functions" as *;
+@use "./styles/abstracts/mixins" as *;
 :host{
   width: 100%;
 }
@@ -16,24 +17,36 @@
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
     h2 {
-      font-size: 1.3rem;
+      font-size: 1rem;
+      @include responsive(xs-small) {
+        font-size: 1.3rem;
+      }
+
     }
   }
   .details-list{
     margin: 0;
     .details-list-item {
       display: flex;
+      flex-direction: column;
       gap: 5px;
       padding: 0.5rem 0;
       font-size: 0.8rem;
+      @include responsive(xs-small) {
+        flex-direction: row;
+        gap: 30px;
+      }
       dt{
         color: $primary;
         width: 25%;
       }
       dd{
         flex: 1;
-        text-align: left;
-        align-self: flex-end;
+        margin: 0;
+        align-self: flex-start;
+        @include responsive(xs-small) {
+          align-self: flex-end;
+        }
         color: black;
         font-size: 1rem;
         font-weight: 400;

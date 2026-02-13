@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   effect, HostBinding,
@@ -8,7 +9,7 @@ import {
   output,
   signal
 } from '@angular/core';
-import {Input} from '../../../../shared/ui/input/input';
+import {CustomInput} from '../../../../shared/ui/input/custom-input.component';
 import { FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {debounceTime} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -21,7 +22,7 @@ import {ItemDetailsPanel} from '../item-details-panel/item-details-panel';
   selector: 'app-search-suggest',
   imports: [
     ReactiveFormsModule,
-    Input,
+    CustomInput,
     CdkConnectedOverlay,
     CdkOverlayOrigin,
     Spinner,
@@ -29,27 +30,38 @@ import {ItemDetailsPanel} from '../item-details-panel/item-details-panel';
   ],
   templateUrl: './search-suggest.html',
   styleUrl: './search-suggest.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchSuggest implements OnInit {
-  @HostBinding('class') overlay = '';
+export class SearchSuggest implements OnInit{
+  @HostBinding('class') overlayHostClass = '';
   formControl = input.required<FormControl>()
   items = input.required<Brewery[] | null>()
   minQueryLength = input<number>();
+  selectedSearchHistory = input<Brewery | null>(null);
+  selectedBreweryChange = output<Brewery | null>()
   emptyMessage = input<string>();
   loading = input<boolean>(true);
   error = input<string>('');
-  onOpen = output<boolean>()
-  onSelectBrewery = output<Brewery>()
-  inputType = input<'text' | 'password' | 'email'>('text');
+  onOpenOverlay = output<boolean>()
+  onOpenDetailsPanel = output<boolean>()
   icon = input<string | null>(null);
   placeHolder = input<string>('');
   onSearch = output<string>()
-  selectedBrewery: Brewery | null = null
   destroyRef = inject(DestroyRef);
-  isOpen = signal(false)
+  isOpenOverlay = signal(false)
+  isOpenDetailsPanel = signal(false)
+  selectedBrewery: Brewery | null = null;
 
   protected query: FormControl = new FormControl('', [Validators.required]);
   constructor() {
+    effect(() => {
+      if (this.selectedSearchHistory()) {
+        this.query.patchValue(this.selectedSearchHistory()?.name, {emitEvent: false});
+        this.selectedBrewery = this.selectedSearchHistory();
+        this.isOpenOverlay.set(true);
+        this.isOpenDetailsPanel.set(true);
+      }
+    });
     effect(() => {
       if (this.minQueryLength()) {
         this.query.setValidators(Validators.minLength(this.minQueryLength()!))
@@ -61,8 +73,9 @@ export class SearchSuggest implements OnInit {
   ngOnInit() {
     this.query.valueChanges.pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef)).subscribe((value: string) => {
       if(value) {
-        this.isOpen.set(true);
-        this.overlay = 'active'
+        this.isOpenOverlay.set(true);
+        this.isOpenDetailsPanel.set(false)
+        this.overlayHostClass = 'active'
       }
       this.onSearch.emit(value);
     })
@@ -70,25 +83,30 @@ export class SearchSuggest implements OnInit {
 
   protected selectBrewery(item: Brewery) {
     this.selectedBrewery = item;
-    this.onSelectBrewery.emit(item)
+    this.selectedBreweryChange.emit(item)
+    this.isOpenDetailsPanel.set(true);
+    this.query.patchValue(item.name, {emitEvent: false});
   }
 
   protected restValue() {
-    this.selectedBrewery = null;
-    this.isOpen.set(false);
-    this.overlay = ''
+    this.selectedBreweryChange.emit(null);
+    this.isOpenOverlay.set(false);
+    this.isOpenDetailsPanel.set(false);
+    this.overlayHostClass = ''
   }
 
   protected onClosePanel() {
-    this.selectedBrewery = null;
-    this.isOpen.set(true);
-    this.overlay = 'active'
+    this.selectedBreweryChange.emit(null);
+    this.isOpenOverlay.set(true);
+    this.isOpenDetailsPanel.set(false);
+    this.onOpenDetailsPanel.emit(this.isOpenDetailsPanel())
+    this.overlayHostClass = 'active'
   }
 
   protected openDropdown(isFocus: boolean) {
-    if(this.query.value && !this.isOpen()) {
-      this.isOpen.set(isFocus);
-      this.overlay = isFocus ? 'active': '';
+    if(this.query.value && !this.isOpenOverlay()) {
+      this.isOpenOverlay.set(isFocus);
+      this.overlayHostClass = isFocus ? 'active': '';
     }
   }
 }

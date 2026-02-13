@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
 import {Icon} from '../../../../shared/ui/icon/icon';
 
 @Component({
@@ -8,6 +8,7 @@ import {Icon} from '../../../../shared/ui/icon/icon';
   ],
   templateUrl: './history-item.html',
   styleUrl: './history-item.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoryItem {
     title = input.required<string>()

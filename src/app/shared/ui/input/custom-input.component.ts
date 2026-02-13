@@ -7,17 +7,17 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   imports: [
     NgOptimizedImage
   ],
-  templateUrl: './input.html',
-  styleUrl: './input.scss',
+  templateUrl: './custom-input.component.html',
+  styleUrl: './custom-input.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => Input),
+      useExisting: forwardRef(() => CustomInput),
       multi: true
     }
   ]
 })
-export class Input implements ControlValueAccessor {
+export class CustomInput implements ControlValueAccessor {
    inputType = input<'text' | 'password' | 'email'>('text');
    icon = input<string | null>(null);
    placeHolder = input<string>('');

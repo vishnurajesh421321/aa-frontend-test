@@ -5,7 +5,7 @@
     @if(searchHistory().length) {
       @for (item of searchHistory(); track item.id) {
         <li class="search-history-item">
-          <app-history-item  (onRemove)="removeHistory(item)" [title]="item.name" [date]="(item.createdAt | date: 'yyyy-MM-dd hh:mm') ?? ''"/>
+          <app-history-item (click)="handleHistorySelect(item)"  (onRemove)="removeHistory(item)" [title]="item.name" [date]="(item.createdAt | date: 'yyyy-MM-dd hh:mm') ?? ''"/>
         </li>
       }
     } @else {

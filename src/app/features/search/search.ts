@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {SearchSuggest} from './components/search-suggest/search-suggest';
 import {FormControl} from '@angular/forms';
 import {BrewerySearchStore} from './store/brewery.store';
@@ -40,7 +40,17 @@ export class Search {
     }
   }
 
-  protected saveSelectedToHistory(brewery: Brewery) {
-    this.searchHistoryService.saveSearchHistory(brewery)
+  protected saveSelectedToHistory(brewery: Brewery | null) {
+     if(brewery) {
+       this.breweryStore.setSelectedHistory(null)
+       this.searchHistoryService.saveSearchHistory(brewery)
+     }
+  }
+
+  protected handleDetailsPanelChange(isOpen: boolean) {
+    if(!isOpen && this.breweryStore.selectedHistory() !== null) {
+      this.breweryStore.setBreweries([this.breweryStore.selectedHistory()!])
+      this.breweryStore.setSelectedHistory(null)
+    }
   }
 }

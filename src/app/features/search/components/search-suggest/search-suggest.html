@@ -1,18 +1,18 @@
 <div>
-    <app-input cdkOverlayOrigin #origin="cdkOverlayOrigin" (keydown.escape)="isOpen.set(false)"
+    <app-input cdkOverlayOrigin #origin="cdkOverlayOrigin" (keydown.escape)="isOpenOverlay.set(false)"
                (onFocus)="openDropdown($event)"
                [formControl]="query"
                placeHolder="Seach here..." icon="search"/>
   <ng-template
     cdkConnectedOverlay
-    [cdkConnectedOverlayOpen]="isOpen()"
+    [cdkConnectedOverlayOpen]="isOpenOverlay()"
     [cdkConnectedOverlayOrigin]="origin"
     [cdkConnectedOverlayHasBackdrop]="false"
     (overlayOutsideClick)="restValue()"
     [cdkConnectedOverlayWidth]="origin.elementRef.nativeElement.offsetWidth"
-    (detach)="isOpen.set(false)">
-    @if(selectedBrewery) {
-      <app-item-details-panel (onClose)="onClosePanel()" [brewery]="selectedBrewery"/>
+    (detach)="isOpenOverlay.set(false)">
+    @if(isOpenDetailsPanel()) {
+      <app-item-details-panel [panelState]="isOpenDetailsPanel() ? 'open':'closed'" (panelStateChange)="onClosePanel()" [brewery]="selectedBrewery"/>
     } @else {
       @if(loading()) {
         <div class="empty-item">

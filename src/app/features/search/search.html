@@ -6,7 +6,9 @@
       [loading]="breweryStore.loading()"
       [error]="breweryStore.error()?.toString() || ''"
       [minQueryLength]="minQueryLength"
-      (onSelectBrewery)="saveSelectedToHistory($event)"
+      [selectedSearchHistory]="breweryStore.selectedHistory()"
+      (selectedBreweryChange)="saveSelectedToHistory($event)"
+      (onOpenDetailsPanel)="handleDetailsPanelChange($event)"
       [items]="breweryStore.breweries()">
       @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {
         <div class="flex justify-end button-section">
