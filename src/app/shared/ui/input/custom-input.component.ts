@@ -62,8 +62,7 @@ export class CustomInput implements ControlValueAccessor {
     if (this.clearable() && this.value) {
       this.value = '';
       this.inputOnChange(this.value);
-    } else {
-      input.focus();
     }
+    input.focus();
   }
 }

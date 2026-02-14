@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { HistoryItem } from './history-item';
 
@@ -20,5 +21,15 @@ describe('HistoryItem', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('stops event propagation and emits title when remove is clicked', () => {
+    const event = { stopPropagation: vi.fn() } as unknown as MouseEvent;
+    const emitSpy = vi.spyOn(component.remove, 'emit');
+
+    (component as any).handleOnRemove(event);
+
+    expect(event.stopPropagation).toHaveBeenCalled();
+    expect(emitSpy).toHaveBeenCalledWith('TEST TITLE');
   });
 });

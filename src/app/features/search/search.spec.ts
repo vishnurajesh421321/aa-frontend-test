@@ -98,7 +98,7 @@ describe('Search', () => {
     const setBreweriesSpy = vi.spyOn(component.breweryStore, 'setBreweries');
     const setSelectedHistorySpy = vi.spyOn(component.breweryStore, 'setSelectedHistory');
 
-    component['handleDetailsPanelChange'](false);
+    component['handleDetailsPanelChange']();
 
     expect(setBreweriesSpy).toHaveBeenCalledWith([brewery]);
     expect(setSelectedHistorySpy).toHaveBeenCalledWith(null);
@@ -109,10 +109,10 @@ describe('Search', () => {
     const setBreweriesSpy = vi.spyOn(component.breweryStore, 'setBreweries');
     const setSelectedHistorySpy = vi.spyOn(component.breweryStore, 'setSelectedHistory');
 
-    component['handleDetailsPanelChange'](true);
+    component['handleDetailsPanelChange']();
 
-    expect(setBreweriesSpy).not.toHaveBeenCalled();
-    expect(setSelectedHistorySpy).not.toHaveBeenCalled();
+    expect(setBreweriesSpy).toHaveBeenCalled();
+    expect(setSelectedHistorySpy).toHaveBeenCalled();
   });
 
   it('does not restore history brewery when no selected history exists', () => {
@@ -120,7 +120,7 @@ describe('Search', () => {
     const setBreweriesSpy = vi.spyOn(component.breweryStore, 'setBreweries');
     const setSelectedHistorySpy = vi.spyOn(component.breweryStore, 'setSelectedHistory');
 
-    component['handleDetailsPanelChange'](false);
+    component['handleDetailsPanelChange']();
 
     expect(setBreweriesSpy).not.toHaveBeenCalled();
     expect(setSelectedHistorySpy).not.toHaveBeenCalled();

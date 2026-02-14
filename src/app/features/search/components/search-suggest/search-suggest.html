@@ -27,7 +27,7 @@
     @if (isOpenDetailsPanel()) {
       <app-item-details-panel
         [panelState]="isOpenDetailsPanel() ? 'open' : 'closed'"
-        (panelStateChange)="onClosePanel()"
+        (panelStateChange)="handleCloseDetailsPanel()"
         [brewery]="selectedBrewery"
       />
     } @else {

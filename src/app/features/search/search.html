@@ -7,7 +7,7 @@
       [minQueryLength]="minQueryLength"
       [selectedSearchHistory]="breweryStore.selectedHistory()"
       (brewerySelectChange)="saveSelectedToHistory($event)"
-      (closeDetailsPanel)="handleDetailsPanelChange($event)"
+      (detailsPanelClosed)="handleDetailsPanelChange()"
       [items]="breweryStore.breweries()"
     >
       @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {

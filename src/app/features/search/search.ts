@@ -43,9 +43,10 @@ export class Search {
     }
   }
 
-  protected handleDetailsPanelChange(isOpen: boolean) {
-    if (!isOpen && this.breweryStore.selectedHistory() !== null) {
-      this.breweryStore.setBreweries([this.breweryStore.selectedHistory()!]);
+  protected handleDetailsPanelChange() {
+    const selectedHistory = this.breweryStore.selectedHistory();
+    if (selectedHistory) {
+      this.breweryStore.setBreweries([selectedHistory]);
       this.breweryStore.setSelectedHistory(null);
     }
   }

@@ -31,36 +31,57 @@ import { ItemDetailsPanel } from '../item-details-panel/item-details-panel';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchSuggest implements OnInit {
-  @HostBinding('class') overlayHostClass = '';
+  /** Host bindings */
+  @HostBinding('class.active')
+  get isActive() {
+    return this.isOpenOverlay();
+  }
+
+  /** Inputs */
   items = input.required<Brewery[] | null>();
   minQueryLength = input<number>();
   selectedSearchHistory = input<Brewery | null>(null);
-  brewerySelectChange = output<Brewery | null>();
   loading = input<boolean>(true);
   error = input<string>('');
-  openOverlay = output<boolean>();
-  closeDetailsPanel = output<boolean>();
   icon = input<string | null>(null);
   placeHolder = input<string>('');
+
+  /** Outputs */
+  brewerySelectChange = output<Brewery | null>();
+  detailsPanelClosed = output<void>();
   searchQuery = output<string>();
-  destroyRef = inject(DestroyRef);
+  openOverlay = output<boolean>(); // consider removing if unused
+
+  /** Dependency Injection */
+  private destroyRef = inject(DestroyRef);
+
+  /** Component State (signals) */
   isOpenOverlay = signal(false);
   isOpenDetailsPanel = signal(false);
+
+  /** Component properties */
   selectedBrewery: Brewery | null = null;
 
-  protected query: FormControl = new FormControl('', [Validators.required]);
+  /** Forms */
+  protected query = new FormControl<string>('', {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
+
   constructor() {
     effect(() => {
-      if (this.selectedSearchHistory()) {
-        this.query.patchValue(this.selectedSearchHistory()?.name, { emitEvent: false });
-        this.selectedBrewery = this.selectedSearchHistory();
+      const selectedSearchHistory = this.selectedSearchHistory();
+      if (selectedSearchHistory) {
+        this.query.patchValue(selectedSearchHistory.name, { emitEvent: false });
+        this.selectedBrewery = selectedSearchHistory;
         this.isOpenOverlay.set(true);
         this.isOpenDetailsPanel.set(true);
       }
     });
     effect(() => {
-      if (this.minQueryLength()) {
-        this.query.setValidators(Validators.minLength(this.minQueryLength()!));
+      const minQueryLength = this.minQueryLength();
+      if (minQueryLength) {
+        this.query.addValidators(Validators.minLength(minQueryLength));
         this.query.updateValueAndValidity({ emitEvent: false });
       }
     });
@@ -71,7 +92,6 @@ export class SearchSuggest implements OnInit {
       const shouldOpen = !!value && this.query.valid;
       this.isOpenOverlay.set(shouldOpen);
       this.isOpenDetailsPanel.set(false);
-      this.overlayHostClass = shouldOpen ? 'active' : '';
       this.searchQuery.emit(value);
     });
   }
@@ -87,21 +107,17 @@ export class SearchSuggest implements OnInit {
     this.brewerySelectChange.emit(null);
     this.isOpenOverlay.set(false);
     this.isOpenDetailsPanel.set(false);
-    this.overlayHostClass = '';
   }
 
-  protected onClosePanel() {
+  protected handleCloseDetailsPanel() {
     this.brewerySelectChange.emit(null);
-    this.isOpenOverlay.set(true);
     this.isOpenDetailsPanel.set(false);
-    this.closeDetailsPanel.emit(this.isOpenDetailsPanel());
-    this.overlayHostClass = 'active';
+    this.detailsPanelClosed.emit();
   }
 
   protected openDropdown(isFocus: boolean) {
     if (this.query.valid && this.query.value && !this.isOpenOverlay()) {
       this.isOpenOverlay.set(isFocus);
-      this.overlayHostClass = isFocus ? 'active' : '';
     }
   }
 }
