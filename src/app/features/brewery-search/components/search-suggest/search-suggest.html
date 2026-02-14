@@ -6,12 +6,13 @@
     (focusChange)="openDropdown($event)"
     [formControl]="query"
     placeHolder="Seach here..."
+    ariaLabel="Search by name"
     icon="search"
     [loading]="loading()"
     [clearable]="true"
   />
   @if (query.hasError('minlength')) {
-    <div class="form-error">
+    <div class="form-error" aria-live="polite">
       <span>Type more characters…</span>
     </div>
   }
@@ -32,15 +33,19 @@
       />
     } @else {
       @if (error() || items()?.length === 0) {
-        <div class="empty-item">
+        <div class="empty-item" role="status" aria-live="polite">
           <span>{{ error() || 'No items found' }}</span>
         </div>
       } @else {
         <div class="dropdown-wrapper">
-          <ul class="drop-down-list">
+          <ul class="drop-down-list" role="listbox" aria-label="suggestions">
             @for (item of items(); track item.id) {
               <li>
-                <button type="button" (click)="selectBrewery(item)">
+                <button
+                  type="button"
+                  [attr.aria-label]="'View details for ' + item.name"
+                  (click)="selectBrewery(item)"
+                >
                   {{ item.name }}
                 </button>
               </li>

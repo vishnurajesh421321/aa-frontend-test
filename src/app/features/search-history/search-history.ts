@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { HistoryItem } from './components/history-item/history-item';
 import { SearchHistoryService } from '../../shared/services/search-history-service';
-import { Brewery } from '../search/models/breweries.interface';
+import { Brewery } from '../brewery-search/models/breweries.interface';
 import { DatePipe } from '@angular/common';
-import { BrewerySearchStore } from '../search/store/brewery.store';
+import { BrewerySearchStore } from '../brewery-search/store/brewery.store';
 
 @Component({
   selector: 'app-search-history',
@@ -29,6 +29,6 @@ export class SearchHistory implements OnInit, OnDestroy {
   }
 
   protected handleHistorySelect(item: Brewery) {
-    this.breweryStore.setSelectedHistory(item);
+    this.breweryStore.setSelectedHistory({ ...item });
   }
 }

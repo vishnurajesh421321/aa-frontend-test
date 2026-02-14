@@ -1,5 +1,6 @@
 @use 'styles/abstracts' as *;
-:host {
+.history-item {
+  width: 100%;
   padding: 0.5rem 1rem;
   background: white;
   display: flex;
@@ -7,8 +8,23 @@
   border-radius: 5px;
   @include shadow();
   cursor: pointer;
+  &:has(button.item-title:focus-visible),
+  &:has(button.item-title:focus) {
+    outline: 2px solid $primary-bg;
+    outline-offset: 2px;
+  }
   &:hover {
     background-color: $secondary;
+    .close {
+      app-icon {
+        @include brightness(0.5);
+      }
+    }
+    .item-title {
+      span {
+        color: blackAlpha(0.8);
+      }
+    }
   }
   span {
     color: $primary;
@@ -21,6 +37,9 @@
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
+  &:focus-visible {
+    outline: none;
+  }
   @include responsive(small) {
     flex-direction: row;
     align-items: center;

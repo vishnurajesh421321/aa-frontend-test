@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 
 import { SearchHistoryService } from './search-history-service';
 import { SessionService } from './session-service';
-import { Brewery } from '../../features/search/models/breweries.interface';
+import { Brewery } from '../../features/brewery-search/models/breweries.interface';
 
 describe('SearchHistoryService', () => {
   let service: SearchHistoryService;
@@ -45,7 +45,7 @@ describe('SearchHistoryService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('saves search history and persists sorted list', () => {
+  it('saves brewery-search history and persists sorted list', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2024-01-01T00:00:00.000Z'));
 
@@ -126,7 +126,7 @@ describe('SearchHistoryService', () => {
     expect(mockSessionService.storeItem).not.toHaveBeenCalled();
   });
 
-  it('clears search history and session storage', () => {
+  it('clears brewery-search history and session storage', () => {
     service.saveSearchHistory(createBrewery('1'));
 
     service.clearSearchHistory();

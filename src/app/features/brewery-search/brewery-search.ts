@@ -6,14 +6,14 @@ import { SearchHistoryService } from '../../shared/services/search-history-servi
 import { Brewery } from './models/breweries.interface';
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-brewery-search',
   imports: [SearchSuggest, SearchHistory],
-  templateUrl: './search.html',
-  styleUrl: './search.scss',
+  templateUrl: './brewery-search.html',
+  styleUrl: './brewery-search.scss',
   providers: [BrewerySearchStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Search {
+export class BrewerySearch {
   breweryStore = inject(BrewerySearchStore);
   searchHistoryService = inject(SearchHistoryService);
   pageSize = this.breweryStore.params.per_page;

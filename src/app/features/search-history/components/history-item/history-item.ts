@@ -12,6 +12,11 @@ export class HistoryItem {
   title = input.required<string>();
   date = input.required<string>();
   remove = output<string>();
+  selected = output<void>();
+
+  protected handleOnSelect(): void {
+    this.selected.emit();
+  }
 
   protected handleOnRemove(event: MouseEvent): void {
     event.stopPropagation();

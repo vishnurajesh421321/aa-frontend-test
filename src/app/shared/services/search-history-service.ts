@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Brewery } from '../../features/search/models/breweries.interface';
+import { Brewery } from '../../features/brewery-search/models/breweries.interface';
 import { SessionService } from './session-service';
 
 @Injectable({
@@ -14,8 +14,8 @@ export class SearchHistoryService {
   saveSearchHistory(searchHistory: Brewery) {
     const createdAt = new Date().toISOString();
     this.searchHistories.set(searchHistory.id, { ...searchHistory, createdAt });
-    if (this.history().length === this.historyMaxCount) {
-      this.searchHistories.delete(this.history()[this.history().length - 1].id);
+    if (this.searchHistories.size > this.historyMaxCount) {
+      this.searchHistories.delete(this.history()[this.historyMaxCount - 1].id);
     }
     const searchHistories = [...this.searchHistories.values()];
     this.sortHistoryByDate(searchHistories);

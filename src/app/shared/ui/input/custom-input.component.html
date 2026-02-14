@@ -2,19 +2,27 @@
   <input
     #inputRef
     (input)="handleInput($event)"
-    [value]="value"
+    [value]="value()"
     (focus)="handleFocus()"
     (blur)="handleBlur()"
     [placeholder]="placeHolder()"
     [type]="inputType()"
+    [attr.aria-label]="ariaLabel()"
+    [disabled]="disabled()"
   />
-  <button (click)="handleButtonActions(inputRef)" class="icon">
+  <button
+    type="button"
+    (click)="handleButtonActions(inputRef)"
+    class="icon"
+    [attr.aria-label]="clearable() && value() ? 'Clear search input' : 'Search actions'"
+    [disabled]="disabled()"
+  >
     @if (loading()) {
       <app-spinner [width]="20" [height]="20" [borderWidth]="2"></app-spinner>
-    } @else if (clearable() && value) {
-      <img width="15" height="15" ngSrc="assets/icons/close.svg" alt="clear" />
+    } @else if (clearable() && value()) {
+      <app-icon [width]="15" [height]="15" [icon]="'close'" />
     } @else if (icon()) {
-      <img width="25" height="25" [ngSrc]="`assets/icons/${icon()}.svg`" alt="search" />
+      <app-icon [width]="25" [height]="25" [icon]="icon()!" />
     }
   </button>
 </div>

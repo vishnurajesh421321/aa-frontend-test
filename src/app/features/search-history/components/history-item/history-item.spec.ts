@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { HistoryItem } from './history-item';
+import { Brewery } from '../../../brewery-search/models/breweries.interface';
+import { By } from '@angular/platform-browser';
 
 describe('HistoryItem', () => {
   let component: HistoryItem;
@@ -31,5 +33,15 @@ describe('HistoryItem', () => {
 
     expect(event.stopPropagation).toHaveBeenCalled();
     expect(emitSpy).toHaveBeenCalledWith('TEST TITLE');
+  });
+  it('selects history item when clicking a history row', () => {
+    const emitSpy = vi.spyOn(component.selected, 'emit');
+
+    fixture.detectChanges();
+
+    const historyItem = fixture.debugElement.query(By.css('.history-item'));
+    historyItem.triggerEventHandler('click');
+
+    expect(emitSpy).toHaveBeenCalled();
   });
 });

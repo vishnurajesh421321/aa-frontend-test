@@ -1,4 +1,4 @@
-<section class="flex flex-center">
+<section class="flex flex-center" aria-label="Brewery search">
   <article class="search-box">
     <app-search-suggest
       (searchQuery)="getQuery($event)"
@@ -12,7 +12,15 @@
     >
       @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {
         <div class="flex justify-end button-section">
-          <button (click)="seeAll()" class="btn-primary">
+          <button
+            type="button"
+            (click)="seeAll()"
+            [attr.aria-expanded]="pageSize() !== minPageSize"
+            [attr.aria-label]="
+              pageSize() === minPageSize ? 'Show all search results' : 'Show fewer search results'
+            "
+            class="btn-primary"
+          >
             {{ pageSize() === minPageSize ? 'See all results' : 'See less results' }}
           </button>
         </div>

@@ -23,10 +23,10 @@ describe('CustomInput', () => {
 
   it('writes value and falls back to empty string for nullish values', () => {
     component.writeValue('abc');
-    expect(component.value).toBe('abc');
+    expect(component.value()).toBe('abc');
 
     component.writeValue(undefined as unknown as string);
-    expect(component.value).toBe('');
+    expect(component.value()).toBe('');
   });
 
   it('registers callbacks and handles input updates', () => {
@@ -35,7 +35,7 @@ describe('CustomInput', () => {
 
     component.handleInput({ target: { value: 'typed' } } as unknown as Event);
 
-    expect(component.value).toBe('typed');
+    expect(component.value()).toBe('typed');
     expect(onChange).toHaveBeenCalledWith('typed');
   });
 
@@ -43,12 +43,12 @@ describe('CustomInput', () => {
     const onTouched = vi.fn();
     const focusSpy = vi.spyOn(component.focusChange, 'emit');
     component.registerOnTouched(onTouched);
-    component.isFocused = true;
+    component.isFocused.set(true);
 
     (component as any).handleBlur();
 
     expect(onTouched).toHaveBeenCalled();
-    expect(component.isFocused).toBe(false);
+    expect(component.isFocused()).toBe(false);
     expect(focusSpy).toHaveBeenCalledWith(false);
   });
 
@@ -57,27 +57,27 @@ describe('CustomInput', () => {
 
     (component as any).handleFocus();
 
-    expect(component.isFocused).toBe(true);
+    expect(component.isFocused()).toBe(true);
     expect(focusSpy).toHaveBeenCalledWith(true);
   });
 
   it('sets disabled state', () => {
     component.setDisabledState?.(true);
-    expect(component.disabled).toBe(true);
+    expect(component.disabled()).toBe(true);
 
     component.setDisabledState?.(false);
-    expect(component.disabled).toBe(false);
+    expect(component.disabled()).toBe(false);
   });
 
   it('clears value when clearable and there is a value', () => {
     const onChange = vi.fn();
     component.registerOnChange(onChange);
     fixture.componentRef.setInput('clearable', true);
-    component.value = 'filled';
+    component.value.set('filled');
 
     (component as any).handleButtonActions({ focus: vi.fn() } as unknown as HTMLInputElement);
 
-    expect(component.value).toBe('');
+    expect(component.value()).toBe('');
     expect(onChange).toHaveBeenCalledWith('');
   });
 
@@ -86,7 +86,7 @@ describe('CustomInput', () => {
     const focus = vi.fn();
     component.registerOnChange(onChange);
     fixture.componentRef.setInput('clearable', false);
-    component.value = 'filled';
+    component.value.set('brewery');
 
     (component as any).handleButtonActions({ focus } as unknown as HTMLInputElement);
 

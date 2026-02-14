@@ -1,9 +1,24 @@
-<p title="{{ title() }}" class="item-title">
-  <span>{{ title() }}</span>
-  <span class="dash">-</span>
-  <span>{{ date() }}</span>
-</p>
+<button type="button" (click)="titleButton.click()" class="history-item" aria-label="History item">
+  <button
+    #titleButton
+    type="button"
+    (click)="handleOnSelect()"
+    [attr.aria-label]="'Search history ' + title()"
+    title="{{ title() }}"
+    class="item-title"
+  >
+    <span>{{ title() }}</span>
+    <span aria-hidden="true" class="dash">-</span>
+    <span>{{ date() }}</span>
+  </button>
 
-<button tabindex="-1" type="button" (click)="handleOnRemove($event)">
-  <app-icon [width]="15" [height]="15" icon="close" />
+  <button
+    tabindex="-1"
+    class="close"
+    type="button"
+    aria-label="Remove from search history"
+    (click)="handleOnRemove($event)"
+  >
+    <app-icon [width]="15" [height]="15" icon="close" />
+  </button>
 </button>

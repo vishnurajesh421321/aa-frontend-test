@@ -4,9 +4,9 @@
   <ul class="search-history-list">
     @if (searchHistory().length) {
       @for (item of searchHistory(); track item.id) {
-        <li tabindex="0" (keydown.enter)="handleHistorySelect(item)" class="search-history-item">
+        <li class="search-history-item">
           <app-history-item
-            (click)="handleHistorySelect(item)"
+            (selected)="handleHistorySelect(item)"
             (remove)="removeHistory(item)"
             [title]="item.name"
             [date]="(item.createdAt | date: 'yyyy-MM-dd hh:mm') ?? ''"

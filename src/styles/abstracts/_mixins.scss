@@ -14,6 +14,10 @@
   box-shadow: $x $y $blur $spread $color;
 }
 
+@mixin brightness($value) {
+  filter: brightness($value);
+}
+
 @mixin responsive($size) {
   $width: map.get($breakpoints, $size);
 

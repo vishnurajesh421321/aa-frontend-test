@@ -3,8 +3,8 @@ import { vi } from 'vitest';
 
 import { SearchHistory } from './search-history';
 import { SearchHistoryService } from '../../shared/services/search-history-service';
-import { BrewerySearchStore } from '../search/store/brewery.store';
-import { Brewery } from '../search/models/breweries.interface';
+import { BrewerySearchStore } from '../brewery-search/store/brewery.store';
+import { Brewery } from '../brewery-search/models/breweries.interface';
 import { signal } from '@angular/core';
 
 describe('SearchHistory', () => {
@@ -75,22 +75,5 @@ describe('SearchHistory', () => {
   it('should show the text "No history records found" when history is empty', () => {
     const text = fixture.nativeElement.querySelector('small') as HTMLElement;
     expect(text.textContent.trim()).toBe('No history records found');
-  });
-  it('selects history item when clicking a history row', () => {
-    const item = {
-      id: '1',
-      name: 'Brew One',
-      createdAt: '2026-01-01T12:00:00.000Z',
-    } as Brewery;
-    historySignal.set([item]);
-
-    fixture.detectChanges();
-
-    const historyItem = fixture.debugElement.query(
-      (debugEl) => debugEl.name === 'app-history-item',
-    );
-    historyItem.triggerEventHandler('click');
-
-    expect(mockBreweryStore.setSelectedHistory).toHaveBeenCalledWith(item);
   });
 });

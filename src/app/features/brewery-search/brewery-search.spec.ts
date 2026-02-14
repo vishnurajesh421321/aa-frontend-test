@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Search } from './search';
+import { BrewerySearch } from './brewery-search';
 import { Brewery } from './models/breweries.interface';
 import { vi } from 'vitest';
 
-describe('Search', () => {
-  let component: Search;
-  let fixture: ComponentFixture<Search>;
+describe('BrewerySearch', () => {
+  let component: BrewerySearch;
+  let fixture: ComponentFixture<BrewerySearch>;
 
   const brewery: Brewery = {
     id: '1',
@@ -23,10 +23,10 @@ describe('Search', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Search],
+      imports: [BrewerySearch],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Search);
+    fixture = TestBed.createComponent(BrewerySearch);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -56,7 +56,7 @@ describe('Search', () => {
   });
 
   it('expands page size to max when seeAll is called below max', () => {
-    component.pageSize = (() => 5) as Search['pageSize'];
+    component.pageSize = (() => 5) as BrewerySearch['pageSize'];
     const setPageSizeSpy = vi.spyOn(component.breweryStore, 'setPageSize');
 
     component['seeAll']();
@@ -65,7 +65,7 @@ describe('Search', () => {
   });
 
   it('reduces page size to min when seeAll is called at max or above', () => {
-    component.pageSize = (() => 10) as Search['pageSize'];
+    component.pageSize = (() => 10) as BrewerySearch['pageSize'];
     const setPageSizeSpy = vi.spyOn(component.breweryStore, 'setPageSize');
 
     component['seeAll']();

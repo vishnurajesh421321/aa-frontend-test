@@ -1,7 +1,7 @@
 <section class="details-panel">
   <header class="flex justify-between">
     <h2>{{ brewery()?.name }}</h2>
-    <button (click)="closePanel()">
+    <button type="button" (click)="closePanel()" aria-label="Close brewery details panel">
       <app-icon [width]="15" [height]="15" icon="close" />
     </button>
   </header>

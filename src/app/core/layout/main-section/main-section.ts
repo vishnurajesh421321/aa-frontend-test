@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Search } from '../../../features/search/search';
+import { BrewerySearch } from '../../../features/brewery-search/brewery-search';
 
 @Component({
   selector: 'app-main-section',
-  imports: [Search],
+  imports: [BrewerySearch],
   templateUrl: './main-section.html',
   styleUrl: './main-section.scss',
 })
