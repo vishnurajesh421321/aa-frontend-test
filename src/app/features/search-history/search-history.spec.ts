@@ -59,7 +59,6 @@ describe('SearchHistory', () => {
     expect(mockSearchHistoryService.removeHistory).toHaveBeenCalledWith(brewery);
   });
 
-
   it('handles selected history item', () => {
     const brewery = { id: '9', name: 'Beta' } as Brewery;
 
