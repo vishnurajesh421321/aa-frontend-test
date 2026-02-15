@@ -27,7 +27,6 @@ Then open `http://localhost:4200/`.
 - Query updates are URL-encoded before being sent.
 - The app starts with `per_page: 5` results.
 - "See all" toggles page size between **5** and **10**.
-- Queries shorter than **3** characters are not searched and clear displayed results.
 
 ## Search history behavior (important)
 
@@ -36,7 +35,6 @@ Then open `http://localhost:4200/`.
 - History entries are de-duplicated by brewery `id` (latest selection wins).
 - Each saved entry gets a `createdAt` timestamp and history is sorted newest-first.
 - You can remove a single history item from the history list.
-- On Search History component destroy, history is cleared from memory and `localStorage`.
 
 ## Build
 
