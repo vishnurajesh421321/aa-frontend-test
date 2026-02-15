@@ -52,7 +52,7 @@ export const BrewerySearchStore = signalStore(
     });
     return {
       setQuery(query: string) {
-        patchState(store, { params: { ...store.params(), query } });
+        patchState(store, { params: { ...store.params(), query: encodeURIComponent(query) } });
       },
       setPageSize(perPage: number) {
         patchState(store, { params: { ...store.params(), per_page: perPage } });

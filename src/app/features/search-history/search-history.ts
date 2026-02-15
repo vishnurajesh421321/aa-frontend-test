@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { HistoryItem } from './components/history-item/history-item';
 import { SearchHistoryService } from '../../shared/services/search-history-service';
 import { Brewery } from '../brewery-search/models/breweries.interface';
@@ -12,7 +12,7 @@ import { BrewerySearchStore } from '../brewery-search/store/brewery.store';
   styleUrl: './search-history.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchHistory implements OnInit, OnDestroy {
+export class SearchHistory implements OnInit {
   searchHistoryService = inject(SearchHistoryService);
   breweryStore = inject(BrewerySearchStore);
   searchHistory = this.searchHistoryService._history;
@@ -22,10 +22,6 @@ export class SearchHistory implements OnInit, OnDestroy {
 
   protected removeHistory(brewery: Brewery) {
     this.searchHistoryService.removeHistory(brewery);
-  }
-
-  ngOnDestroy() {
-    this.searchHistoryService.clearSearchHistory();
   }
 
   protected handleHistorySelect(item: Brewery) {
