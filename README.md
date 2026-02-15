@@ -1,40 +1,51 @@
-# ASSA Abloy test
+# Brewery Search (Angular)
 
-# Instructions
+A small Angular app for searching breweries via the Open Brewery DB API and managing a short local search history.
 
-## Pre-req
-- Fork the repository
-- Create a feature branch, named feature/FIRSTNAME-LASTNAME
-- Create an Angular application in the repo
+## Tech stack
 
-## Task
-- Implement a simple search and select history function according to the FIGMA link (https://www.figma.com/file/RjhfsxK7lKOreCO7nprhEc/AA---FrontEnd-test)
-- The search should use a public REST API of choice (https://www.openbrewerydb.org/documentation#search-breweries)
-    - A suggestion could be: https://api.openbrewerydb.org/breweries/search?page=1&per_page=5&query= (where you need to pass the search query as a string)
-    - See the docs here: ([Brewery API Docs](https://www.openbrewerydb.org/documentation/)).
-- Search for anything
-- Display partial search results in a list beneath the search field (5) and an option to show all (let's say that 10 is the maximum)
-- When making a selection the search value should be saved with date/timestamp beneath the search box, just like a search history.
-- The page should be responsive, so it should be adaptive for all devices/windows
-- The search history should be persisted in localStorage
-- The logo can be found in the assets folder
+- Angular 21 (standalone components)
+- NgRx Signals store
+- RxJS for debounced API requests
+- Open Brewery DB API (`https://api.openbrewerydb.org/v1/`)
 
-## What we will look at extra carefully
-- Reactive forms
-- Sanity checking
-- Design pattern
-- Component structuring
-- Folder structuring
-- HTML5 semantics, more complex SCSS logic (use of variables etc)
-- Unit tests (reasonable coverage )
+## Development
 
-## Additional notes
-- Solve the task as far as you think is necessary.
-- When done push your branch and let us know it’s done, e.g. by a pull request.
-- branch name use your firstname_lastname
+Install dependencies and run:
 
-## 🤖 AI Usage Policy
+```bash
+npm install
+npm start
+```
 
-* You are allowed to **research and learn from documentation or AI tools**.
-* **Directly using AI to write or submit code** will be considered a violation and may negatively impact evaluation.
-* The goal is to assess **your understanding, problem-solving, and coding style**.
+Then open `http://localhost:4200/`.
+
+## How search works
+
+- The search flow is driven by a signal store (`BrewerySearchStore`).
+- Requests are debounced by **300ms**.
+- Query updates are URL-encoded before being sent.
+- The app starts with `per_page: 5` results.
+- "See all" toggles page size between **5** and **10**.
+- Queries shorter than **3** characters are not searched and clear displayed results.
+
+## Search history behavior (important)
+
+- Search history is stored in `localStorage` under key `BREWERY_SEARCH_HISTORY`.
+- History max capacity is **5 items** (`historyMaxCount = 5`).
+- History entries are de-duplicated by brewery `id` (latest selection wins).
+- Each saved entry gets a `createdAt` timestamp and history is sorted newest-first.
+- You can remove a single history item from the history list.
+- On Search History component destroy, history is cleared from memory and `localStorage`.
+
+## Build
+
+```bash
+npm run build
+```
+
+## Test
+
+```bash
+npm test
+```

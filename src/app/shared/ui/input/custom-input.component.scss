@@ -1,0 +1,31 @@
+@use 'styles/abstracts' as *;
+.custom-input {
+  position: relative;
+  input {
+    flex: 1;
+    height: 50px;
+    border: none;
+    border-radius: $primary-radius;
+    padding: 0 2.4rem 0 1rem;
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px $primary-bg;
+    }
+  }
+  @include shadow();
+  .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      app-icon {
+        @include brightness(0.5);
+      }
+    }
+  }
+}

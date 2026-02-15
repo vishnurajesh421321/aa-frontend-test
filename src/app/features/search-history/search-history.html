@@ -1,0 +1,20 @@
+<section class="search-history">
+  <h2>Search history</h2>
+
+  <ul class="search-history-list">
+    @if (searchHistory().length) {
+      @for (item of searchHistory(); track item.id) {
+        <li class="search-history-item">
+          <app-history-item
+            (selected)="handleHistorySelect(item)"
+            (remove)="removeHistory(item)"
+            [title]="item.name"
+            [date]="(item.createdAt | date: 'yyyy-MM-dd hh:mm') ?? ''"
+          />
+        </li>
+      }
+    } @else {
+      <small>No history records found</small>
+    }
+  </ul>
+</section>

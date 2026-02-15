@@ -1,0 +1,78 @@
+@use 'styles/abstracts' as *;
+.history-item {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  @include shadow();
+  cursor: pointer;
+  &:has(button.item-title:focus-visible),
+  &:has(button.item-title:focus) {
+    outline: 2px solid $primary-bg;
+    outline-offset: 2px;
+  }
+  &:hover {
+    background-color: $secondary;
+    .close {
+      app-icon {
+        @include brightness(0.5);
+      }
+    }
+    .item-title {
+      span {
+        color: blackAlpha(0.8);
+      }
+    }
+  }
+  span {
+    color: $primary;
+    font-size: 14px;
+  }
+}
+.item-title {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  &:focus-visible {
+    outline: none;
+  }
+  @include responsive(small) {
+    flex-direction: row;
+    align-items: center;
+  }
+  span {
+    &:first-child {
+      order: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+      font-size: 1rem;
+      @include responsive(small) {
+        order: unset;
+      }
+    }
+    &.dash {
+      display: none;
+      font-weight: bolder;
+      line-height: 1;
+      @include responsive(small) {
+        display: block;
+      }
+    }
+    &:last-child {
+      font-size: 0.8rem;
+      @include responsive(small) {
+        align-self: unset;
+        font-size: 14px;
+      }
+      @include responsive(small) {
+        align-self: flex-end;
+      }
+    }
+  }
+}

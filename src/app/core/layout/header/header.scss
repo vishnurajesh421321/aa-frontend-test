@@ -1,0 +1,14 @@
+header {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 0;
+  div {
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 15px;
+    h1 {
+      color: white;
+      letter-spacing: 1px;
+    }
+  }
+}

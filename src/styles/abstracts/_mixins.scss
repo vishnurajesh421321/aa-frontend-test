@@ -1,0 +1,31 @@
+@use 'breakpoints' as *;
+@use 'sass:map';
+
+@mixin linear-gradient($from, $to) {
+  background: $from;
+  background: -webkit-linear-gradient(0deg, $from 0%, $to 100%);
+  background: -moz-linear-gradient(0deg, $from 0%, $to 100%);
+  background: linear-gradient(0deg, $from 0%, $to 100%);
+}
+
+@mixin shadow($x: 2px, $y: 4px, $blur: 9px, $spread: 0, $color: rgba(0, 0, 0, 0.48)) {
+  -webkit-box-shadow: $x $y $blur $spread $color;
+  -moz-box-shadow: $x $y $blur $spread $color;
+  box-shadow: $x $y $blur $spread $color;
+}
+
+@mixin brightness($value) {
+  filter: brightness($value);
+}
+
+@mixin responsive($size) {
+  $width: map.get($breakpoints, $size);
+
+  @if $width == null {
+    @error "Breakpoint `#{$size}` not found. Available: #{map.keys($breakpoints)}";
+  }
+
+  @media (min-width: $width) {
+    @content;
+  }
+}

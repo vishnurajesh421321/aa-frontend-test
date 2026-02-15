@@ -1,0 +1,7 @@
+@use 'variable' as *;
+$breakpoints: (
+  xs-small: $mobile-small,
+  small: $mobile,
+  medium: $tablet,
+  large: $desktop,
+);

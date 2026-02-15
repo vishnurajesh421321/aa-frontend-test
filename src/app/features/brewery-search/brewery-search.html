@@ -1,0 +1,34 @@
+<section class="flex flex-center" aria-label="Brewery search">
+  <article class="search-box">
+    <app-search-suggest
+      (searchQuery)="getQuery($event)"
+      [loading]="breweryStore.loading()"
+      [error]="breweryStore.error()?.toString() || ''"
+      [minQueryLength]="minQueryLength"
+      [selectedSearchHistory]="breweryStore.selectedHistory()"
+      (brewerySelectChange)="saveSelectedToHistory($event)"
+      (detailsPanelClosed)="handleDetailsPanelChange()"
+      [items]="breweryStore.breweries()"
+    >
+      @if ((breweryStore.breweries().length || 0) > minPageSize - 1) {
+        <div class="flex justify-end button-section">
+          <button
+            type="button"
+            (click)="seeAll()"
+            [attr.aria-expanded]="pageSize() !== minPageSize"
+            [attr.aria-label]="
+              pageSize() === minPageSize ? 'Show all search results' : 'Show fewer search results'
+            "
+            class="btn-primary"
+          >
+            {{ pageSize() === minPageSize ? 'See all results' : 'See less results' }}
+          </button>
+        </div>
+      }
+    </app-search-suggest>
+
+    <div class="search-history-wrapper">
+      <app-search-history />
+    </div>
+  </article>
+</section>

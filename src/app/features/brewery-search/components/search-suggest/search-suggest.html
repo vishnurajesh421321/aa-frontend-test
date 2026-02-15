@@ -1,0 +1,59 @@
+<section>
+  <app-input
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+    (keydown.escape)="isOpenOverlay.set(false)"
+    (focusChange)="openDropdown($event)"
+    [formControl]="query"
+    placeHolder="Seach here..."
+    ariaLabel="Search by name"
+    icon="search"
+    [loading]="loading()"
+    [clearable]="true"
+  />
+  @if (query.hasError('minlength')) {
+    <div class="form-error" aria-live="polite">
+      <span>Type more characters…</span>
+    </div>
+  }
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOpen]="isOpenOverlay()"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayHasBackdrop]="false"
+    (overlayOutsideClick)="resetValue()"
+    [cdkConnectedOverlayWidth]="origin.elementRef.nativeElement.offsetWidth"
+    (detach)="isOpenOverlay.set(false)"
+  >
+    @if (isOpenDetailsPanel()) {
+      <app-item-details-panel
+        [panelState]="isOpenDetailsPanel() ? 'open' : 'closed'"
+        (panelStateChange)="handleCloseDetailsPanel()"
+        [brewery]="selectedBrewery"
+      />
+    } @else {
+      @if (error() || items()?.length === 0) {
+        <div class="empty-item" role="status" aria-live="polite">
+          <span>{{ error() || 'No items found' }}</span>
+        </div>
+      } @else {
+        <div class="dropdown-wrapper">
+          <ul class="drop-down-list" role="listbox" aria-label="suggestions">
+            @for (item of items(); track item.id) {
+              <li>
+                <button
+                  type="button"
+                  [attr.aria-label]="'View details for ' + item.name"
+                  (click)="selectBrewery(item)"
+                >
+                  {{ item.name }}
+                </button>
+              </li>
+            }
+          </ul>
+          <ng-content></ng-content>
+        </div>
+      }
+    }
+  </ng-template>
+</section>
